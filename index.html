@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BU E-Library Portal | E-Library & Research Hub</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="Image2/logo.jpeg" alt="Bugema University Logo" class="nav-logo" />
+                    <div class="nav-text">
+                        <span class="university-name">BU E-Library</span>
+                        <span class="library-name">portal</span>
+                    </div>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="Books.html" class="nav-link">Books</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="special collections.html" class="nav-link">Special Collections</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner slideshow" id="heroBanner">
+        <div class="container">
+            <div class="hero-content">
+                <div class="search-section">
+                    <h2 class="search-title">Quick Discovery</h2>
+                    <div class="search-container">
+                        <form class="search-box" id="catalogSearchForm">
+                            <input type="text" id="catalogSearchInput" placeholder="Search Books, Journals, Research..." class="search-input" />
+                            <button type="submit" class="search-btn">🔍</button>
+                        </form>
+                        <a href="#" class="advanced-search">Advanced Search</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Search Results (Hidden by default) -->
+    <section class="search-results-section" id="searchResultsSection">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="resultsCount">Search Results</h2>
+                <button class="btn btn-secondary" onclick="closeSearch()">Clear Results</button>
+            </div>
+            <div class="results-grid" id="resultsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Knowledge Lane Section -->
+    <section class="knowledge-lane">
+        <div class="container">
+            <h2 class="section-title">✦ Choose Your Knowledge Lane</h2>
+            <div class="lane-slideshow" id="laneSlideshow">
+                <div class="lane-track">
+                    <div class="lane-card">
+                        <div class="lane-image">
+                            <img src="Image2/S Agricultur.jpeg" alt="Agricultural Sciences" />
+                        </div>
+                        <div class="lane-content">
+                            <h3>Agricultural Sciences</h3>
+                            <a href="school of agriculture.html" class="lane-btn">Open Gateway</a>
+                        </div>
+                    </div>
+                    <div class="lane-card">
+                        <div class="lane-image">
+                            <img src="Image2/S Education.jpeg" alt="Education" />
+                        </div>
+                        <div class="lane-content">
+                            <h3>School of Education</h3>
+                            <a href="school of education.html" class="lane-btn">Open Gateway</a>
+                        </div>
+                    </div>
+                    <div class="lane-card">
+                        <div class="lane-image">
+                            <img src="Image2/S Health.jpeg" alt="Health Sciences" />
+                        </div>
+                        <div class="lane-content">
+                            <h3>Health Sciences</h3>
+                            <a href="school of health.html" class="lane-btn">Open Gateway</a>
+                        </div>
+                    </div>
+                    <div class="lane-card">
+                        <div class="lane-image">
+                            <img src="Image2/Business.jpeg" alt="Business" />
+                        </div>
+                        <div class="lane-content">
+                            <h3>School of Business</h3>
+                            <a href="school of business.html" class="lane-btn">Open Gateway</a>
+                        </div>
+                    </div>
+                    <div class="lane-card">
+                        <div class="lane-image">
+                            <img src="Image2/S Science.jpeg" alt="Science & Technology" />
+                        </div>
+                        <div class="lane-content">
+                            <h3>Science & Technology</h3>
+                            <a href="school of education.html" class="lane-btn">Open Gateway</a>
+                        </div>
+                    </div>
+                    <div class="lane-card">
+                        <div class="lane-image">
+                            <img src="Image2/Theology.jpeg" alt="Theology" />
+                        </div>
+                        <div class="lane-content">
+                            <h3>School of Theology</h3>
+                            <a href="school of theology.html" class="lane-btn">Open Gateway</a>
+                        </div>
+                    </div>
+                    <div class="lane-card">
+                        <div class="lane-image">
+                            <img src="Image2/Social.jpeg" alt="Social Sciences" />
+                        </div>
+                        <div class="lane-content">
+                            <h3>Social Sciences</h3>
+                            <a href="school of social.html" class="lane-btn">Open Gateway</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="lane-nav">
+                    <button class="lane-prev" aria-label="Previous">❮</button>
+                    <div class="lane-dots"></div>
+                    <button class="lane-next" aria-label="Next">❯</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Power Pack -->
+    <section class="power-pack">
+        <div class="container">
+            <h2 class="section-title">✦ Your Academic Power Pack</h2>
+            <p class="section-subtitle">Quick access to the most useful library resources and academic tools</p>
+            <div class="power-pack-grid">
+                <a href="https://lib.bugemauniv.ac.ug/index.php/e-resources" target="_blank" class="power-item">
+                    <span class="power-icon">🌐</span>
+                    <span class="power-text">E-Resources Gateway</span>
+                </a>
+                <a href="https://repository.bugemauniv.ac.ug/" target="_blank" class="power-item">
+                    <span class="power-icon">📚</span>
+                    <span class="power-text">BU Repository (DSpace)</span>
+                </a>
+                <a href="https://lib.bugemauniv.ac.ug/index.php/past-papers" target="_blank" class="power-item">
+                    <span class="power-icon">📖</span>
+                    <span class="power-text">Past Exam Papers</span>
+                </a>
+                <a href="http://opac.bugemauniv.ac.ug/" target="_blank" class="power-item">
+                    <span class="power-icon">🔍</span>
+                    <span class="power-text">Online Catalog (OPAC)</span>
+                </a>
+                <a href="https://www.turnitin.com/login_page.asp" target="_blank" class="power-item">
+                    <span class="power-icon">✅</span>
+                    <span class="power-text">Plagiarism Checker</span>
+                </a>
+                <a href="https://lib.bugemauniv.ac.ug/index.php/research-support" target="_blank" class="power-item">
+                    <span class="power-icon">🛡️</span>
+                    <span class="power-text">Research Support</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Support Services -->
+    <section class="support-services">
+        <div class="container">
+            <h2 class="section-title">✦ Student Support Services</h2>
+            <p class="section-subtitle">One-click access to our most-used library services</p>
+            <div class="services-grid">
+                <a href="services.html" class="service-item">
+                    <span class="service-icon">📖</span>
+                    <h3>Borrow Resources</h3>
+                    <p>Reach Out and Borrow Books</p>
+                    <span class="service-arrow">→</span>
+                </a>
+                <a href="services.html" class="service-item">
+                    <span class="service-icon">🖨️</span>
+                    <h3>Print & Scan</h3>
+                    <p>Document services Available on campus</p>
+                    <span class="service-arrow">→</span>
+                </a>
+                <a href="services.html" class="service-item">
+                    <span class="service-icon">🌐</span>
+                    <h3>Remote Access</h3>
+                    <p>Connect from off-campus</p>
+                    <span class="service-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest from Library -->
+    <section class="latest-news">
+        <div class="container">
+            <h2 class="section-title">✦ Latest from the Library</h2>
+            <div class="news-grid">
+                <a href="https://lib.bugemauniv.ac.ug/" target="_blank" class="news-main-link">
+                    <div class="news-main">
+                        <div class="news-badge">ANNOUNCEMENT</div>
+                        <img src="Image2/Library.jpeg" alt="Library Orientation" class="news-image" />
+                        <div class="news-content">
+                            <div class="news-label">FEATURED</div>
+                            <h3>Library Orientation for New Students</h3>
+                            <p>Welcome to the E.W. Pederson Memorial Library! Join our daily orientation sessions to learn how to access our 50,000+ volumes and global e-resource databases.</p>
+                            <span class="news-link">Learn More →</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="news-sidebar">
+                    <div class="news-badge">UPDATES</div>
+                    <a href="https://lib.bugemauniv.ac.ug/index.php/e-resources" target="_blank" class="news-item-link">
+                        <div class="news-item">
+                            <img src="Image2/Books4.jpeg" alt="Training" class="news-thumb" />
+                            <div class="news-content-small">
+                                <div class="news-label">Training</div>
+                                <h4>Virtual Workshop: Mastering Research Databases</h4>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="support.html" class="news-item-link">
+                        <div class="news-item">
+                            <div class="news-label">Services</div>
+                            <h4>Remote Access Guide</h4>
+                            <p>Off-campus access is now enabled for all registered students via the EZproxy gateway.</p>
+                        </div>
+                    </a>
+                    <a href="#" class="news-link">Browse All Updates</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4>BU E-Library Portal</h4>
+                <p>Empowering Knowledge, Enabling Excellence</p>
+                <div class="contact-info">
+                    <p><span class="contact-icon">📞</span> +256 312 351400</p>
+                    <p><span class="contact-icon">✉️</span> library@bugema.ac.ug</p>
+                    <p><span class="contact-icon">📍</span> Bugema University Main - Campus</p>
+                </div>
+                <div class="footer-links">
+                    <button class="footer-btn">Quick Links ▼</button>
+                    <button class="footer-btn">Digital Resources ▼</button>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">📺</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 BU E-Library Portal. All rights reserved.</p>
+        </div>
+    </footer>
+                        <p><span class="contact-icon">📞</span> +256 312 351400</p>
+                    <p><span class="contact-icon">✉️</span> library@bugema.ac.ug</p>
+                    <p><span class="contact-icon">📍</span> Bugema University Main - Campus</p>
+                </div>
+                <div class="footer-links">
+                    <button class="footer-btn">Quick Links ▼</button>
+                    <button class="footer-btn">Digital Resources ▼</button>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">📺</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 BU E-Libray Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-btn">💬</button>
+    </div>
+
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // --- Interactive Catalog Search Logic ---
+        const libraryData = [
+            { title: "Research Methodology: Methods and Techniques", author: "C.R. Kothari", type: "Physical Book", location: "Main Stack - 001.42 KOT", available: true },
+            { title: "Foundations of Education", author: "Allan C. Ornstein", type: "E-Book", location: "Digital Access", available: true },
+            { title: "Principles of Accounting", author: "Belverd E. Needles", type: "Physical Book", location: "Main Stack - 657 NEE", available: false },
+            { title: "Digital Literacy in Higher Education", author: "Bugema Faculty", type: "Research Paper", location: "Institutional Repository", available: true },
+            { title: "Introduction to Information Technology", author: "T. Richard", type: "E-Journal", location: "ProQuest Central", available: true },
+            { title: "The Great Controversy", author: "Ellen G. White", type: "Special Collection", location: "Heritage Room", available: false }
+        ];
+
+        const searchForm = document.getElementById('catalogSearchForm');
+        const searchInput = document.getElementById('catalogSearchInput');
+        const resultsSection = document.getElementById('searchResultsSection');
+        const resultsGrid = document.getElementById('resultsGrid');
+        const resultsCount = document.getElementById('resultsCount');
+        const heroBanner = document.getElementById('heroBanner');
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = searchInput.value.toLowerCase().trim();
+            
+            if (query === "") return;
+
+            // Filter data
+            const filteredResults = libraryData.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.author.toLowerCase().includes(query)
+            );
+
+            displayResults(filteredResults);
+        });
+
+        function displayResults(results) {
+            resultsGrid.innerHTML = '';
+            resultsSection.style.display = 'block';
+            resultsCount.innerText = `${results.length} Resources Found`;
+
+            if (results.length === 0) {
+                resultsGrid.innerHTML = '<p class="container">No resources found matching your search. Please try different keywords or check our E-Resources Gateway.</p>';
+            } else {
+                results.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'result-card';
+                    const statusClass = item.available ? 'status-available' : 'status-unavailable';
+                    const statusText = item.available ? 'Available' : 'Loaned Out';
+                    card.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                            <span class="result-tag">${item.type}</span>
+                            <span class="status-indicator ${statusClass}">${statusText}</span>
+                        </div>
+                        <h4>${item.title}</h4>
+                        <p><strong>Author:</strong> ${item.author}</p>
+                        <p><strong>Location:</strong> ${item.location}</p>
+                        <a href="Books.html" class="news-link" style="margin-top: 10px; display: block;">View Details →</a>
+                    `;
+                    resultsGrid.appendChild(card);
+                });
+            }
+            
+            // Smooth scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeSearch() {
+            resultsSection.style.display = 'none';
+            searchInput.value = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- Power Pack Interaction ---
+        // The links now target actual resource pages from the provided URL context.
+
+
+        // Knowledge Lane Slideshow - like lib.bugemauniv.ac.ug
+        const laneTrack = document.querySelector('.lane-track');
+        const laneCards = document.querySelectorAll('.lane-card');
+        const lanePrev = document.querySelector('.lane-prev');
+        const laneNext = document.querySelector('.lane-next');
+        const laneDots = document.querySelector('.lane-dots');
+        
+        let laneIndex = 0;
+        const getVisibleCards = () => window.innerWidth > 1024 ? 4 : (window.innerWidth > 768 ? 2 : 1);
+        let visibleCards = getVisibleCards();
+        
+        // Create dots for navigation
+        if (laneCards.length > 0 && laneDots) {
+            const totalDots = Math.ceil(laneCards.length / visibleCards);
+            laneDots.innerHTML = '';
+            for (let i = 0; i < totalDots; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'lane-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                dot.addEventListener('click', () => goToSlide(i));
+                laneDots.appendChild(dot);
+            }
+        }
+        
+        function updateLaneSlideshow() {
+            if (laneCards.length > 0) {
+                const cardWidth = laneCards[0].offsetWidth + 24; // Width + gap
+                visibleCards = getVisibleCards();
+                laneTrack.style.transform = `translateX(-${laneIndex * cardWidth}px)`;
+                
+                // Update dots
+                const dots = document.querySelectorAll('.lane-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === laneIndex);
+                });
+            }
+        }
+        
+        function goToSlide(index) {
+            const maxIndex = laneCards.length - visibleCards;
+            laneIndex = Math.max(0, Math.min(index, maxIndex));
+            updateLaneSlideshow();
+        }
+        
+        lanePrev.addEventListener('click', () => {
+            if (laneIndex > 0) {
+                laneIndex--;
+                updateLaneSlideshow();
+            }
+        });
+        
+        laneNext.addEventListener('click', () => {
+            const maxIndex = laneCards.length - visibleCards;
+            if (laneIndex < maxIndex) {
+                laneIndex++;
+                updateLaneSlideshow();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            visibleCards = getVisibleCards();
+            updateLaneSlideshow();
+        });
+        
+        setInterval(() => {
+            const maxIndex = laneCards.length - visibleCards;
+            if (laneIndex < maxIndex) {
+                laneIndex++;
+            } else {
+                laneIndex = 0;
+            }
+            updateLaneSlideshow();
+        }, 5000);
+    </script>
+</body>
+</html>
