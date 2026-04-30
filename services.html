@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services - BU E-Library Portal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="Image2/logo.jpeg" alt="Bugema University Logo" class="nav-logo" />
+                    <div class="nav-text">
+                        <span class="university-name">BU E-Library</span>
+                        <span class="library-name">portal</span>
+                    </div>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="Books.html" class="nav-link">Books</a>
+                <a href="services.html" class="nav-link active">Services</a>
+                <a href="special collections.html" class="nav-link">Special Collections</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner slideshow small">
+        <div class="container hero-content">
+            <h1>Services We Offer</h1>
+            <p>Where heritage meets the high-tech frontier. Step into an environment meticulously crafted to support every facet of your academic ambition.</p>
+        </div>
+    </section>
+
+    <main>
+        <!-- Interlibrary Loan -->
+        <section class="service-section">
+            <div class="container">
+                <div class="service-header">
+                    <div class="service-icon">🔄</div>
+                    <h2>Interlibrary Loan (ILL)</h2>
+                </div>
+                <p>Can't find what you need in our catalog? We can borrow books and articles from other libraries worldwide for you.</p>
+                <form class="service-form enhanced">
+                    <div class="form-group">
+                        <label>Item Title</label>
+                        <input type="text" placeholder="Title of the book or article" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Author/Journal Name</label>
+                        <input type="text" placeholder="Full name of author or journal" required />
+                    </div>
+                    <div class="form-group">
+                        <label>ISBN/ISSN (Optional)</label>
+                        <input type="text" placeholder="Standard ID number" />
+                    </div>
+                    <div class="form-group">
+                        <label>Format</label>
+                        <select required>
+                            <option value="">Select Format</option>
+                            <option value="book">Physical Book</option>
+                            <option value="digital">Digital Copy (PDF)</option>
+                            <option value="microfilm">Microfilm</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">Submit Loan Request</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Study Room Booking -->
+        <section class="service-section">
+            <div class="container">
+                <div class="service-header">
+                    <div class="service-icon">📅</div>
+                    <h2>Study Room Booking</h2>
+                </div>
+                <p>Reserve a private or group study room equipped with high-speed Wi-Fi and presentation tools.</p>
+                <form class="service-form enhanced">
+                    <div class="form-group">
+                        <label>Select Room</label>
+                        <select required>
+                            <option value="room1">Individual Pod (1 Person)</option>
+                            <option value="room2">Small Group Room (2-4 People)</option>
+                            <option value="room3">Large Collaboration Room (5-10 People)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <input type="time" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <select required>
+                            <option value="1">1 Hour</option>
+                            <option value="2">2 Hours</option>
+                            <option value="3">3 Hours (Max)</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">Book Now</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Research Assistance -->
+        <section class="service-section">
+            <div class="container">
+                <div class="service-header">
+                    <div class="service-icon">🔬</div>
+                    <h2>Research Assistance</h2>
+                </div>
+                <p>Get personalized help with literature reviews, database searching, and citation management.</p>
+                <form class="service-form enhanced">
+                    <div class="form-group">
+                        <label>Topic of Research</label>
+                        <input type="text" placeholder="Describe your topic" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Faculty/School</label>
+                        <select required>
+                            <option value="">Select Faculty</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="business">Business</option>
+                            <option value="education">Education</option>
+                            <option value="health">Health Sciences</option>
+                            <option value="science">Science & Tech</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Specific Questions</label>
+                        <textarea placeholder="Tell us what you need help with specifically..." rows="4"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">Schedule Consultation</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Printing & Scanning -->
+        <section class="service-section">
+            <div class="container">
+                <div class="service-header">
+                    <div class="service-icon">🖨️</div>
+                    <h2>Printing & Scanning</h2>
+                </div>
+                <p>Upload documents for printing or request high-resolution scans of library materials (within copyright limits).</p>
+                <form class="service-form enhanced">
+                    <div class="form-group">
+                        <label>Service Type</label>
+                        <select required>
+                            <option value="print">Standard Printing</option>
+                            <option value="scan">Digitization/Scan Request</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Color Mode</label>
+                        <select>
+                            <option value="bw">Black & White</option>
+                            <option value="color">Color</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Upload File / Details</label>
+                        <input type="file" />
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Supported: PDF, DOCX, JPG</p>
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Communication Hub (Ask/Email/Feedback) -->
+        <section class="service-section">
+            <div class="container">
+                <div class="service-header">
+                    <div class="service-icon">💬</div>
+                    <h2>Communication Hub</h2>
+                </div>
+                <p>Have a quick question or need to send us feedback? Choose your preferred contact method below.</p>
+                
+                <div class="service-form enhanced">
+                    <div class="form-group">
+                        <label>I want to...</label>
+                        <select id="commsToggle" onchange="toggleCommsForm()">
+                            <option value="ask">Ask a Librarian</option>
+                            <option value="email">Email Support</option>
+                            <option value="feedback">Provide Feedback</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label id="commsLabel">Your Question</label>
+                        <textarea id="commsText" placeholder="Type here..." rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" placeholder="email@bugema.ac.ug" required />
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client Feedback Section -->
+        <section class="service-section">
+            <div class="container">
+                <div class="service-header">
+                    <div class="service-icon">📝</div>
+                    <h2>Client Feedback</h2>
+                </div>
+                <p>We value your input to help us serve you better. Please take a moment to provide feedback on our resources and services.</p>
+                <form class="service-form enhanced" id="clientFeedbackForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="email@bugema.ac.ug" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Category of Feedback</label>
+                        <select required>
+                            <option value="">Select Category</option>
+                            <option value="resources">Information Resources</option>
+                            <option value="facilities">Physical Facilities</option>
+                            <option value="staff">Staff Attributes</option>
+                            <option value="services">Information Services</option>
+                            <option value="general">General Satisfaction</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Overall Rating</label>
+                        <select required>
+                            <option value="">Select Rating</option>
+                            <option value="excellent">Excellent</option>
+                            <option value="very_good">Very Good</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                            <option value="poor">Poor</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Comments / Suggestions</label>
+                        <textarea placeholder="Please provide specific details about your experience or suggestions for improvement..." rows="5" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>BU E-Library Portal</h3>
+                <p>Providing quality academic support and digital access to empower students and faculty.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <p>📍 Library Building, Main Campus</p>
+                <p>📞 +256 750 135 338</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('clientFeedbackForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your feedback! It has been successfully submitted to the Bugema University Library team.');
+            this.reset();
+        });
+
+        function toggleCommsForm() {
+            const val = document.getElementById('commsToggle').value;
+            const label = document.getElementById('commsLabel');
+            if (val === 'ask') label.innerText = "Your Question";
+            else if (val === 'email') label.innerText = "Technical Support Details";
+            else if (val === 'feedback') label.innerText = "Share Your Feedback";
+        }
+    </script>
+</body>
+</html>
