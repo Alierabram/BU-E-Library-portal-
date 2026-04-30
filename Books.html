@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books & Resources | BU E-Library Portal</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* Books Page Specific Styles */
+        .books-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            background: var(--surface-light);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--primary-light);
+        }
+
+        .stat-icon.books { 
+            background-image: url('Image2/Introduction\\ AI.jpeg');
+            background-color: #667eea;
+        }
+        .stat-icon.ebooks { 
+            background-image: url('Image2/Data\ Science.jpeg');
+            background-color: #f093fb;
+        }
+        .stat-icon.audio { 
+            background-image: url('Image2/Books3.jpeg');
+            background-color: #4facfe;
+        }
+        .stat-icon.requests { 
+            background-image: url('Image2/Library.jpeg');
+            background-color: #43e97b;
+        }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Form Styles */
+        .form-section {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+        }
+
+        .form-section h2 i {
+            color: var(--accent);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group label .required {
+            color: #e53e3e;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--surface);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-light);
+        }
+
+        select.form-control {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23718096' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--surface-light);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-dark);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+
+        .btn-accent:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Search Form Specific */
+        .advanced-search-box {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .search-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        /* Events Calendar */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .calendar-header {
+            text-align: center;
+            padding: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: var(--surface-light);
+        }
+
+        .calendar-day.today {
+            background: var(--primary);
+            color: white;
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .calendar-day.other-month {
+            color: var(--text-light);
+        }
+
+        .event-dot {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+        }
+
+        .event-dot span {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* News Cards */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .news-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .news-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 54, 93, 0.7);
+        }
+
+        .news-image i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .news-excerpt {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Books of Month */
+        .nomination-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .book-covers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .book-cover {
+            aspect-ratio: 2/3;
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 54, 93, 0.6);
+            border-radius: var(--radius);
+        }
+
+        .book-cover i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .book-cover:hover {
+            transform: scale(1.05);
+        }
+
+        .book-cover.selected {
+            outline: 4px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* New Arrivals */
+        .arrivals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .arrival-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .arrival-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .arrival-cover {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .arrival-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 54, 93, 0.6);
+        }
+
+        .arrival-cover i, .arrival-cover .arrival-badge {
+            position: relative;
+            z-index: 1;
+        }
+
+        .arrival-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent);
+            color: var(--primary-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .arrival-info {
+            padding: 1rem;
+        }
+
+        .arrival-title {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .arrival-author {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .arrival-actions {
+            padding: 0 1rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .arrival-actions .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            background: var(--surface);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+            min-width: 300px;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast.success { border-left: 4px solid #48bb78; }
+        .toast.error { border-left: 4px solid #e53e3e; }
+        .toast.info { border-left: 4px solid #4299e1; }
+
+        .toast i {
+            font-size: 1.25rem;
+        }
+
+        .toast.success i { color: #48bb78; }
+        .toast.error i { color: #e53e3e; }
+        .toast.info i { color: #4299e1; }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-action-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .quick-action-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .quick-action-btn i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-action-btn span {
+            display: block;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tab-nav {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .tab-btn {
+                white-space: nowrap;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 2px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="Image2/logo.jpeg" alt="Bugema University Logo" class="nav-logo" />
+                    <div class="nav-text">
+                        <span class="university-name">BU E-Library</span>
+                        <span class="library-name">portal</span>
+                    </div>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="Books.html" class="nav-link active">Books</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="special collections.html" class="nav-link">Special Collections</a>
+                <a href="support.html" class="nav-link">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner slideshow small">
+        <div class="container hero-content">
+            <h1>Books & Resources</h1>
+            <p>Access our comprehensive collection of physical and digital materials designed to empower your research and learning experience.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="books-container">
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="dashboard">
+                <i class="fas fa-th-large"></i> Dashboard
+            </button>
+            <button class="tab-btn" data-tab="search">
+                <i class="fas fa-search"></i> Advanced Search
+            </button>
+            <button class="tab-btn" data-tab="calendar">
+                <i class="fas fa-calendar-alt"></i> Events
+            </button>
+            <button class="tab-btn" data-tab="news">
+                <i class="fas fa-newspaper"></i> Library News
+            </button>
+            <button class="tab-btn" data-tab="nomination">
+                <i class="fas fa-trophy"></i> Book of Month
+            </button>
+            <button class="tab-btn" data-tab="arrivals">
+                <i class="fas fa-book-open"></i> New Arrivals
+            </button>
+            <button class="tab-btn" data-tab="requests">
+                <i class="fas fa-file-alt"></i> Request Forms
+            </button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div class="tab-content active" id="dashboard">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-icon books" style="background-image: url('Image2/Theology.jpeg');">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12,450</h3>
+                        <p>Total Books</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon ebooks" style="background-image: url('Image2/Research.jpeg');">
+                        <i class="fas fa-tablet-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>3,280</h3>
+                        <p>E-Books Available</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon audio" style="background-image: url('Image2/Books2.jpeg');">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>856</h3>
+                        <p>Audiobooks</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon requests" style="background-image: url('Image2/Library.jpeg');">
+                        <i class="fas fa-hand-holding"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>124</h3>
+                        <p>Pending Requests</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="openModal('ebookModal')">
+                    <i class="fas fa-tablet"></i>
+                    <span>Request E-Book</span>
+                </button>
+                <button class="quick-action-btn" onclick="openModal('interlibraryModal')">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Interlibrary Loan</span>
+                </button>
+                <button class="quick-action-btn" onclick="openModal('specialModal')">
+                    <i class="fas fa-gem"></i>
+                    <span>Special Materials</span>
+                </button>
+                <button class="quick-action-btn" onclick="openModal('eventModal')">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Event Registration</span>
+                </button>
+            </div>
+
+            <!-- Upcoming Events Preview -->
+            <div class="form-section">
+                <h2><i class="fas fa-calendar-check"></i> Upcoming Events</h2>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <div class="news-image" style="background-image: url('Image2/S Science.jpeg');">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">May 5, 2026</div>
+                            <h3 class="news-title">Digital Literacy Workshop</h3>
+                            <p class="news-excerpt">Learn essential digital skills for academic success. Perfect for beginners.</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image" style="background-image: url('Image2/Books4.jpeg');">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">May 12, 2026</div>
+                            <h3 class="news-title">Author Reading Session</h3>
+                            <p class="news-excerpt">Join us for an engaging reading session with published authors.</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image" style="background-image: url('Image2/Methodology.jpeg');">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">May 20, 2026</div>
+                            <h3 class="news-title">Research Methodology Seminar</h3>
+                            <p class="news-excerpt">Advanced research techniques for graduate students.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Search Tab -->
+        <div class="tab-content" id="search">
+            <div class="advanced-search-box">
+                <h2 style="color: var(--primary); margin-bottom: 1.5rem;">
+                    <i class="fas fa-search-plus"></i> Advanced Catalog Search
+                </h2>
+                <form id="advancedSearchForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Search Term <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter keywords, title, author..." id="searchTerm" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Search In</label>
+                            <select class="form-control" id="searchField">
+                                <option value="all">All Fields</option>
+                                <option value="title">Title</option>
+                                <option value="author">Author</option>
+                                <option value="subject">Subject</option>
+                                <option value="isbn">ISBN</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Material Type</label>
+                            <select class="form-control" id="materialType">
+                                <option value="">All Types</option>
+                                <option value="book">Books</option>
+                                <option value="ebook">E-Books</option>
+                                <option value="journal">Journals</option>
+                                <option value="thesis">Theses</option>
+                                <option value="multimedia">Multimedia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Language</label>
+                            <select class="form-control" id="language">
+                                <option value="">All Languages</option>
+                                <option value="en">English</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                                <option value="es">Spanish</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="search-filters">
+                        <div class="filter-group">
+                            <input type="checkbox" id="availableOnly">
+                            <label for="availableOnly">Available Now Only</label>
+                        </div>
+                        <div class="filter-group">
+                            <input type="checkbox" id="peerReviewed">
+                            <label for="peerReviewed">Peer Reviewed</label>
+                        </div>
+                        <div class="filter-group">
+                            <input type="checkbox" id="fullText">
+                            <label for="fullText">Full Text Available</label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Search Catalog
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Clear Filters
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Search Results Container -->
+                <div id="advancedSearchResults" style="display: none; margin-top: 3rem; border-top: 2px solid var(--border); padding-top: 2rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem;" id="searchResultHeader">Search Results</h3>
+                    <div class="results-grid" id="advancedResultsGrid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Calendar Tab -->
+        <div class="tab-content" id="calendar">
+            <div class="form-section">
+                <h2><i class="fas fa-calendar-alt"></i> Events Calendar</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <button class="btn btn-secondary" onclick="changeMonth(-1)">
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <h3 id="currentMonth" style="color: var(--primary); font-size: 1.5rem;">May 2026</h3>
+                    <button class="btn btn-secondary" onclick="changeMonth(1)">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Event Detail Registration -->
+            <div class="form-section">
+                <h2><i class="fas fa-ticket-alt"></i> Event Registration</h2>
+                <form id="eventRegistrationForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" class="form-control" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="+256 XXX XXX XXX">
+                        </div>
+                        <div class="form-group">
+                            <label>Select Event <span class="required">*</span></label>
+                            <select class="form-control" required>
+                                <option value="">Choose an event...</option>
+                                <option value="1">Digital Literacy Workshop - May 5</option>
+                                <option value="2">Author Reading Session - May 12</option>
+                                <option value="3">Research Methodology Seminar - May 20</option>
+                                <option value="4">Book Club Meeting - May 25</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes</label>
+                        <textarea class="form-control" placeholder="Any special requirements or questions..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Register for Event
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Library News Tab -->
+        <div class="tab-content" id="news">
+            <div class="form-section">
+                <h2><i class="fas fa-newspaper"></i> Library News</h2>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <div class="news-image" style="background-image: url('Image2/Data\ Science.jpeg');">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">April 28, 2026</div>
+                            <h3 class="news-title">New Database Access</h3>
+                            <p class="news-excerpt">We now have access to JSTOR's complete collection. All students and staff can access it remotely.</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image" style="background-image: url('Image2/Exams\ time.jpeg');">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">April 25, 2026</div>
+                            <h3 class="news-title">Extended Hours for Exams</h3>
+                            <p class="news-excerpt">Library will be open 24/7 during the exam period from May 1-15. Free coffee and snacks available.</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image" style="background-image: url('Image2/Award.jpeg');">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">April 20, 2026</div>
+                            <h3 class="news-title">Award Winning Authors</h3>
+                            <p class="news-excerpt">Our library collection features multiple award-winning authors. Check out our featured section.</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image" style="background-image: url('Image2/Books1.jpeg');">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">April 18, 2026</div>
+                            <h3 class="news-title">WiFi Upgrade Complete</h3>
+                            <p class="news-excerpt">Our library now has fiber-optic internet with speeds up to 1Gbps. Enjoy seamless research.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book of Month Tab -->
+        <div class="tab-content" id="nomination">
+            <div class="form-section">
+                <h2><i class="fas fa-trophy"></i> Books of the Month Nomination</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Nominate your favorite books for the monthly feature. Selected books will be displayed in the library entrance.</p>
+                
+                <form id="bookNominationForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Your Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Email <span class="required">*</span></label>
+                            <input type="email" class="form-control" placeholder="your.email@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Book Title <span class="required">*</span></label>
+                        <input type="text" class="form-control" placeholder="Enter book title" required>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Author <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter author name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ISBN</label>
+                            <input type="text" class="form-control" placeholder="Enter ISBN (optional)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Why do you recommend this book? <span class="required">*</span></label>
+                        <textarea class="form-control" placeholder="Share why this book is special..." required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Nomination
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Clear Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Featured Books of the Month -->
+            <div class="form-section">
+                <h2><i class="fas fa-star"></i> This Month's Featured Books</h2>
+                <div class="book-covers">
+                    <div class="book-cover" style="background-image: url('Image2/Books1.jpeg');" title="Click to view details">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="book-cover" style="background-image: url('Image2/Books2.jpeg');" title="Click to view details">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="book-cover" style="background-image: url('Image2/Books3.jpeg');" title="Click to view details">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="book-cover" style="background-image: url('Image2/Books4.jpeg');" title="Click to view details">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Arrivals Tab -->
+        <div class="tab-content" id="arrivals">
+            <div class="form-section">
+                <h2><i class="fas fa-book-open"></i> New Arrivals</h2>
+                <div class="arrivals-grid">
+                    <div class="arrival-card">
+                        <div class="arrival-cover" style="background-image: url('Image2/Introduction AI.jpeg');">
+                            <span class="arrival-badge">NEW</span>
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="arrival-info">
+                            <h4 class="arrival-title">Introduction to AI</h4>
+                            <p class="arrival-author">By Dr. John Smith</p>
+                        </div>
+                        <div class="arrival-actions">
+                            <button class="btn btn-primary" onclick="requestItem('ebook')">
+                                <i class="fas fa-tablet-alt"></i> E-Book
+                            </button>
+                            <button class="btn btn-secondary" onclick="requestItem('audio')">
+                                <i class="fas fa-headphones"></i> Audio
+                            </button>
+                        </div>
+                    </div>
+                    <div class="arrival-card">
+                        <div class="arrival-cover" style="background-image: url('Image2/Data Science.jpeg');">
+                            <span class="arrival-badge">NEW</span>
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="arrival-info">
+                            <h4 class="arrival-title">Data Science Basics</h4>
+                            <p class="arrival-author">By Prof. Mary Johnson</p>
+                        </div>
+                        <div class="arrival-actions">
+                            <button class="btn btn-primary" onclick="requestItem('ebook')">
+                                <i class="fas fa-tablet-alt"></i> E-Book
+                            </button>
+                            <button class="btn btn-secondary" onclick="requestItem('audio')">
+                                <i class="fas fa-headphones"></i> Audio
+                            </button>
+                        </div>
+                    </div>
+                    <div class="arrival-card">
+                        <div class="arrival-cover" style="background-image: url('Image2/web\ development.jpeg');">
+                            <span class="arrival-badge">NEW</span>
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="arrival-info">
+                            <h4 class="arrival-title">Web Development</h4>
+                            <p class="arrival-author">By James Wilson</p>
+                        </div>
+                        <div class="arrival-actions">
+                            <button class="btn btn-primary" onclick="requestItem('ebook')">
+                                <i class="fas fa-tablet-alt"></i> E-Book
+                            </button>
+                            <button class="btn btn-secondary" onclick="requestItem('audio')">
+                                <i class="fas fa-headphones"></i> Audio
+                            </button>
+                        </div>
+                    </div>
+                    <div class="arrival-card">
+                        <div class="arrival-cover" style="background-image: url('Image2/machine\ learning.jpeg');">
+                            <span class="arrival-badge">NEW</span>
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="arrival-info">
+                            <h4 class="arrival-title">Machine Learning</h4>
+                            <p class="arrival-author">By Dr. Sarah Brown</p>
+                        </div>
+                        <div class="arrival-actions">
+                            <button class="btn btn-primary" onclick="requestItem('ebook')">
+                                <i class="fas fa-tablet-alt"></i> E-Book
+                            </button>
+                            <button class="btn btn-secondary" onclick="requestItem('audio')">
+                                <i class="fas fa-headphones"></i> Audio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Request Forms Tab -->
+        <div class="tab-content" id="requests">
+            <!-- E-Book / Audiobook Request -->
+            <div class="form-section">
+                <h2><i class="fas fa-tablet-alt"></i> E-Book / Audiobook Request</h2>
+                <form id="ebookRequestForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Your Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Student/Faculty ID <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter your ID" required>
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Book Title <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter book title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input type="text" class="form-control" placeholder="Enter author name">
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Format Preferred <span class="required">*</span></label>
+                            <select class="form-control" required>
+                                <option value="">Select format...</option>
+                                <option value="ebook">E-Book (PDF/ePub)</option>
+                                <option value="audiobook">Audiobook (MP3)</option>
+                                <option value="both">Both formats</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Intended Use</label>
+                            <select class="form-control">
+                                <option value="study">Course Study</option>
+                                <option value="research">Research</option>
+                                <option value="personal">Personal Reading</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Request
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Request Feedback Container -->
+                <div id="requestFeedback" style="display: none; margin-top: 2rem; padding: 2rem; background: var(--accent-light); border-radius: var(--radius); border-left: 5px solid var(--accent);">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem;">✅ Request Processed</h3>
+                    <p id="feedbackMessage" style="color: var(--primary-dark); font-weight: 500;"></p>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">A confirmation email has been sent to your student dashboard. Our librarians will notify you when the digital copy is ready.</p>
+                </div>
+            </div>
+
+            <!-- Special Materials Request -->
+            <div class="form-section">
+                <h2><i class="fas fa-gem"></i> Special Materials Request</h2>
+                <form id="specialMaterialsForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Your Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input type="text" class="form-control" placeholder="Enter your department">
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Material Type <span class="required">*</span></label>
+                            <select class="form-control" required>
+                                <option value="">Select type...</option>
+                                <option value="rare">Rare Books</option>
+                                <option value="manuscript">Manuscripts</option>
+                                <option value="archive">Archives</option>
+                                <option value="thesis">Graduate Theses</option>
+                                <option value="multimedia">Special Media</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Date <span class="required">*</span></label>
+                            <input type="date" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Purpose of Request</label>
+                        <textarea class="form-control" placeholder="Explain why you need this material..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Interlibrary Loan Request -->
+            <div class="form-section">
+                <h2><i class="fas fa-exchange-alt"></i> Interlibrary Loan Request</h2>
+                <form id="interlibraryForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Your Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="email" class="form-control" placeholder="your.email@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Title <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Book/Journal title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input type="text" class="form-control" placeholder="Author name">
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>ISBN/ISSN</label>
+                            <input type="text" class="form-control" placeholder="Enter ISBN or ISSN">
+                        </div>
+                        <div class="form-group">
+                            <label>Publication Year</label>
+                            <input type="text" class="form-control" placeholder="Year of publication">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes</label>
+                        <textarea class="form-control" placeholder="Any specific edition or details..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Loan Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="ebookModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-tablet-alt"></i> Request E-Book / Audiobook</h3>
+                <button class="modal-close" onclick="closeModal('ebookModal')">&times;</button>
+            </div>
+            <form id="modalEbookForm">
+                <div class="form-group">
+                    <label>Book Title <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter book title" required>
+                </div>
+                <div class="form-group">
+                    <label>Format <span class="required">*</span></label>
+                    <select class="form-control" required>
+                        <option value="">Select format...</option>
+                        <option value="ebook">E-Book</option>
+                        <option value="audio">Audiobook</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('ebookModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="interlibraryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-exchange-alt"></i> Interlibrary Loan</h3>
+                <button class="modal-close" onclick="closeModal('interlibraryModal')">&times;</button>
+            </div>
+            <form id="modalInterlibraryForm">
+                <div class="form-group">
+                    <label>Title <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="Book title" required>
+                </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" class="form-control" placeholder="Author name">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('interlibraryModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="specialModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-gem"></i> Special Materials Request</h3>
+                <button class="modal-close" onclick="closeModal('specialModal')">&times;</button>
+            </div>
+            <form id="modalSpecialForm">
+                <div class="form-group">
+                    <label>Material Type <span class="required">*</span></label>
+                    <select class="form-control" required>
+                        <option value="">Select type...</option>
+                        <option value="rare">Rare Books</option>
+                        <option value="manuscript">Manuscripts</option>
+                        <option value="archive">Archives</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Date <span class="required">*</span></label>
+                    <input type="date" class="form-control" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('specialModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-ticket-alt"></i> Event Registration</h3>
+                <button class="modal-close" onclick="closeModal('eventModal')">&times;</button>
+            </div>
+            <form id="modalEventForm">
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" class="form-control" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Select Event <span class="required">*</span></label>
+                    <select class="form-control" required>
+                        <option value="">Choose event...</option>
+                        <option value="1">Digital Literacy Workshop - May 5</option>
+                        <option value="2">Author Reading Session - May 12</option>
+                        <option value="3">Research Seminar - May 20</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('eventModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Tab Navigation
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Calendar
+        let currentDate = new Date(2026, 4, 1); // May 2026
+        const events = {
+            '2026-05-05': 'Digital Literacy Workshop',
+            '2026-05-12': 'Author Reading Session',
+            '2026-05-20': 'Research Methodology Seminar',
+            '2026-05-25': 'Book Club Meeting'
+        };
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            document.getElementById('currentMonth').textContent = 
+                `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+            
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const startDay = firstDay.getDay();
+            const daysInMonth = lastDay.getDate();
+            
+            const prevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+            const prevDays = prevMonth.getDate();
+            
+            let html = '';
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(day => {
+                html += `<div class="calendar-header">${day}</div>`;
+            });
+            
+            // Previous month days
+            for (let i = startDay - 1; i >= 0; i--) {
+                html += `<div class="calendar-day other-month">${prevDays - i}</div>`;
+            }
+            
+            // Current month days
+            const today = new Date();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                let classes = 'calendar-day';
+                if (today.getDate() === i && today.getMonth() === currentDate.getMonth() && 
+                    today.getFullYear() === currentDate.getFullYear()) {
+                    classes += ' today';
+                }
+                if (events[dateStr]) {
+                    classes += ' has-event';
+                }
+                html += `<div class="${classes}" title="${events[dateStr] || ''}">${i}</div>`;
+            }
+            
+            // Next month days
+            const remaining = 42 - (startDay + daysInMonth);
+            for (let i = 1; i <= remaining; i++) {
+                html += `<div class="calendar-day other-month">${i}</div>`;
+            }
+            
+            grid.innerHTML = html;
+        }
+
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Toast Notifications
+        const academicLibraryData = [
+            { title: "Research Methodology", author: "C.R. Kothari", type: "Physical Book", location: "Main Stack - 001.42 KOT", subject: "Research", available: true },
+            { title: "Foundations of Education", author: "Allan C. Ornstein", type: "E-Book", location: "Digital Access", subject: "Education", available: true },
+            { title: "Advanced Accounting", author: "Beams & Anthony", type: "Physical Book", location: "Main Stack - 657 BEA", subject: "Business", available: false },
+            { title: "Principles of Marketing", author: "Philip Kotler", type: "E-Book", location: "ProQuest Central", subject: "Business", available: true },
+            { title: "Introduction to Public Health", author: "Mary-Jane Schneider", type: "Physical Book", location: "Health Wing - 614 SCH", subject: "Health", available: true },
+            { title: "Theology of the Old Testament", author: "Walter Brueggemann", type: "Physical Book", location: "Heritage Room", subject: "Theology", available: false },
+            { title: "Java Programming: A Practical Guide", author: "Daniel Liang", type: "E-Book", location: "Science & Tech Portal", subject: "Science", available: true },
+            { title: "Digital Literacy in Africa", author: "Bugema Research Team", type: "Thesis", location: "Institutional Repository", subject: "Science", available: true },
+            { title: "Cochrane Library Health Reviews", author: "Various Authors", type: "Journal", location: "Digital Access", subject: "Health", available: true },
+            { title: "JSTOR Business Archive", author: "Multiple", type: "E-Journal", location: "JSTOR Portal", subject: "Business", available: true }
+        ];
+
+        const advancedResultsSection = document.getElementById('advancedSearchResults');
+        const advancedResultsGrid = document.getElementById('advancedResultsGrid');
+        const searchResultHeader = document.getElementById('searchResultHeader');
+        const requestFeedback = document.getElementById('requestFeedback');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        const ebookForm = document.getElementById('ebookRequestForm');
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-times-circle',
+                info: 'fa-info-circle'
+            };
+            
+            toast.innerHTML = `
+                <i class="fas ${icons[type]}"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Form Submissions
+        document.getElementById('advancedSearchForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Searching catalog...', 'info');
+        });
+
+        document.getElementById('eventRegistrationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Event registration submitted successfully!', 'success');
+            e.target.reset();
+        });
+
+        document.getElementById('bookNominationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Book nomination submitted successfully!', 'success');
+            e.target.reset();
+        });
+
+        document.getElementById('ebookRequestForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('E-Book/Audiobook request submitted!', 'success');
+            e.target.reset();
+        });
+
+        document.getElementById('specialMaterialsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Special materials request submitted!', 'success');
+            e.target.reset();
+        });
+
+        // Modal form submissions
+        document.getElementById('modalEbookForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Request submitted successfully!', 'success');
+            closeModal('ebookModal');
+            e.target.reset();
+        });
+
+        document.getElementById('modalInterlibraryForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Interlibrary loan request submitted!', 'success');
+            closeModal('interlibraryModal');
+            e.target.reset();
+        });
+
+        document.getElementById('modalSpecialForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Special materials request submitted!', 'success');
+            closeModal('specialModal');
+            e.target.reset();
+        });
+
+        document.getElementById('modalEventForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Event registration successful!', 'success');
+            closeModal('eventModal');
+            e.target.reset();
+        });
+
+        // Request item function
+        function requestItem(type) {
+            openModal('ebookModal');
+        }
+
+        // Initialize calendar
+        renderCalendar();
+
+        // Navigation toggle
+        document.getElementById('navToggle').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
