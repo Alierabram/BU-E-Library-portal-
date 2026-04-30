@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Of Business | BU E-Library Portal</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .gateway-header { background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%); color: white; padding: 3rem 0; text-align: center; }
+        .gateway-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .gateway-header p { max-width: 800px; margin: 0 auto; font-size: 1.1rem; opacity: 0.9; }
+        .gateway-section { padding: 3rem 0; }
+        .gateway-section:nth-child(even) { background: var(--surface-light); }
+        .section-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .section-title { font-size: 1.8rem; color: var(--primary); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
+        .database-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .database-card { background: white; border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); transition: var(--transition); border-left: 4px solid var(--primary); }
+        .database-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .database-card h3 { font-size: 1.2rem; color: var(--primary); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .database-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.5; }
+        .access-btn { display: inline-block; padding: 0.6rem 1.2rem; background: var(--primary); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 0.9rem; transition: var(--transition); }
+        .access-btn:hover { background: var(--primary-dark); }
+        .quick-links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+        .quick-link { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: white; border-radius: var(--radius); box-shadow: var(--shadow); text-decoration: none; color: var(--primary); font-weight: 500; transition: var(--transition); }
+        .quick-link:hover { background: var(--primary); color: white; transform: translateX(5px); }
+        .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .contact-card { background: white; border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); text-align: center; }
+        .contact-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .contact-card h3 { color: var(--primary); margin-bottom: 0.5rem; }
+        .contact-card a { color: var(--text-muted); text-decoration: none; }
+        .contact-card a:hover { color: var(--primary); }
+        .breadcrumb { background: var(--surface-light); padding: 1rem 0; }
+        .breadcrumb-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb span { color: var(--text-muted); margin: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a href="index.html"><img src="Image2/logo.jpeg" alt="Bugema University Logo" class="nav-logo" />
+                    <div class="nav-text"><span class="university-name">Bugema University</span><span class="library-name">Library</span></div>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a><a href="Books.html" class="nav-link">Books</a><a href="services.html" class="nav-link">Services</a><a href="special collections.html" class="nav-link">Special Collections</a><a href="support.html" class="nav-link">Support</a>
+            </div>
+        </div>
+    </nav>
+    <div class="breadcrumb"><div class="breadcrumb-container"><a href="index.html">Home</a> <span>›</span> School Of Business</div></div>
+    <header class="gateway-header">
+        <div class="section-container">
+            <h1>💼 School Of Business</h1>
+            <p>The School of Business believes in integrity and excellence in business dealings. It is therefore dedicated to the education and preparation of students for the dynamic business world.</p>
+        </div>
+    </header>
+    <section class="gateway-section"><div class="section-container">
+            <h2 class="section-title">📚 Key Databases for School Of Business</h2>
+            <div class="database-grid">
+                <div class="database-card"><h3> JSTOR</h3><p>Access scholarly journals in business, economics, and finance.</p><a href="https://www.jstor.org/" target="_blank" class="access-btn">Access Database</a></div>
+                <div class="database-card"><h3> EBSCOhost</h3><p>Access business research and management journals.</p><a href="https://research.ebsco.com/c/lbsxql/search" target="_blank" class="access-btn">Access Database</a></div>
+                <div class="database-card"><h3> Emerald</h3><p>Access management, business, and economics journals.</p><a href="https://www.emerald.com/insight/" target="_blank" class="access-btn">Access Database</a></div>
+                <div class="database-card"><h3> ScienceDirect</h3><p>Access business and management research articles.</p><a href="https://www.sciencedirect.com/" target="_blank" class="access-btn">Access Database</a></div>
+                <div class="database-card"><h3> ProQuest</h3><p>Access business dissertations, theses, and research.</p><a href="https://www.proquest.com/" target="_blank" class="access-btn">Access Database</a></div>
+                <div class="database-card"><h3> Wiley Online Library</h3><p>Access peer-reviewed journals in business and economics.</p><a href="https://onlinelibrary.wiley.com/" target="_blank" class="access-btn">Access Database</a></div>
+            </div>
+        </div>
+    </section>
+    <section class="gateway-section"><div class="section-container">
+            <h2 class="section-title">🔗 Quick Links</h2>
+            <div class="quick-links-grid">
+                <a href="#" class="quick-link">📖 E-Books Collection</a><a href="#" class="quick-link">📰 Journals & E-Journals</a><a href="#" class="quick-link">🔍 Research Databases</a><a href="#" class="quick-link">📋 Citation Guides</a><a href="#" class="quick-link">🎓 Thesis & Dissertations</a><a href="#" class="quick-link">📊 Data Sources</a>
+            </div>
+        </div>
+    </section>
+    <section class="gateway-section"><div class="section-container">
+            <h2 class="section-title">🎓 Research & Support</h2>
+            <div class="quick-links-grid">
+                <a href="#" class="quick-link">📝 Research Guides</a><a href="#" class="quick-link">📨 Interlibrary Loan</a><a href="#" class="quick-link">💻 Computer Lab Booking</a><a href="#" class="quick-link">📚 Library Orientation</a><a href="#" class="quick-link">🔒 Database VPN Setup</a><a href="#" class="quick-link">❓ FAQ</a>
+            </div>
+        </div>
+    </section>
+    <section class="gateway-section"><div class="section-container">
+            <h2 class="section-title">❓ Need Help with Business Research?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Connect with your dedicated subject librarians and faculty administrators</p>
+            <div class="contact-info">
+                <div class="contact-card"><div class="icon">📧</div><h3>Email Library</h3><a href="mailto:library@bugema.ac.ug">library@bugema.ac.ug</a></div>
+                <div class="contact-card"><div class="icon">📞</div><h3>Call Us</h3><a href="tel:+256750135338">+256 750 135 338</a></div>
+                <div class="contact-card"><div class="icon">💬</div><h3>Chat with Librarian</h3><a href="#">Start Live Chat</a></div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-section"><h3>BU E-Library Portal</h3><p>Your gateway to academic resources, research materials, and library services at Bugema University.</p></div>
+            <div class="footer-section"><h3>Quick Links</h3><ul class="footer-links-list"><li><a href="index.html">Home</a></li><li><a href="Books.html">Books</a></li><li><a href="services.html">Services</a></li><li><a href="support.html">Support</a></li></ul></div>
+            <div class="footer-section"><h3>Contact Us</h3><p>📍 Bugema University, Uganda</p><p>📞 +256 750 135 338</p><p>📧 library@bugema.ac.ug</p></div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Bugema University E-Library. All rights reserved.</p></div>
+    </footer>
+    <script>
+        const navToggle = document.getElementById('navToggle'); const navMenu = document.getElementById('navMenu');
+        navToggle.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+    </script>
+</body>
+</html>
