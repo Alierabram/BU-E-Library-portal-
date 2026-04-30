@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support - BU E-Library Portal</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="Image2/logo.jpeg" alt="Bugema University Logo" class="nav-logo" />
+                    <div class="nav-text">
+                        <span class="university-name">BU E-Library</span>
+                        <span class="library-name">portal</span>
+                    </div>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="Books.html" class="nav-link">Books</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="special collections.html" class="nav-link">Special Collections</a>
+                <a href="support.html" class="nav-link active">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Page Header -->
+        <section class="page-header support-hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <span class="badge">Support Center</span>
+                    <h1>Support & Tutorials</h1>
+                    <p>Need help using the library? Browse helpful guides, quick answers, and contact our support team directly.</p>
+                </div>
+                <div class="hero-image">
+                    <img src="Image2/Books2.jpeg" alt="Students using the library" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Tutorials & Guides -->
+        <section class="guides-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Tutorials & Guides</h2>
+                    <p>Master our digital tools with these step-by-step resources.</p>
+                </div>
+                <div class="guides-grid">
+                    <div class="guide-item">
+                        <img src="Image2/Introduction AI.jpeg" alt="Catalog Guide" class="guide-image" />
+                        <div class="guide-content">
+                            <span class="guide-icon">🔍</span>
+                            <h4>How to Search the Catalog</h4>
+                            <p>Learn advanced techniques to find exactly what you need in seconds.</p>
+                            <a href="#" class="btn btn-secondary">View Guide</a>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <img src="Image2/Data Science.jpeg" alt="E-Resource Guide" class="guide-image" />
+                        <div class="guide-content">
+                            <span class="guide-icon">💻</span>
+                            <h4>Accessing E-Resources</h4>
+                            <p>Step-by-step instructions for off-campus access to journals and databases.</p>
+                            <a href="#" class="btn btn-secondary">Watch Video</a>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <img src="Image2/Methodology.jpeg" alt="Citation Guide" class="guide-image" />
+                        <div class="guide-content">
+                            <span class="guide-icon">✍️</span>
+                            <h4>Citation & Referencing</h4>
+                            <p>A comprehensive guide to APA, MLA, and Chicago styles for your research.</p>
+                            <a href="#" class="btn btn-secondary">Download PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Help Center / FAQs -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Help Center & FAQs</h2>
+                    <p>Quick answers to commonly asked questions.</p>
+                </div>
+                <div class="faq-container">
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>How do I renew my borrowed books online?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Log in to your account management section below, view your active loans, and click the 'Renew' button next to the eligible items.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>What is the maximum number of books I can borrow?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Undergraduate students can borrow up to 5 books for 14 days. Graduate students and Faculty have extended limits of 10 and 15 books respectively.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>How can I access the library databases from home?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Use the 'Remote Access' link under our Services page. You will need to log in with your university credentials to establish a secure connection.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Management Section -->
+        <section class="account-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Account Management</h2>
+                    <p>Manage your library profile, check loan status, and settle fines.</p>
+                </div>
+                
+                <div class="account-grid">
+                    <div class="account-option" onclick="toggleAccountPanel('passwordPanel')">
+                        <span class="account-icon">🔐</span>
+                        <h4>Reset Password</h4>
+                        <p>Change or recover your access credentials.</p>
+                        <button class="btn btn-primary-small">Manage</button>
+                    </div>
+                    <div class="account-option" onclick="toggleAccountPanel('loansPanel')">
+                        <span class="account-icon">📚</span>
+                        <h4>My Loans</h4>
+                        <p>View active books and renewal dates.</p>
+                        <button class="btn btn-primary-small">View Loans</button>
+                    </div>
+                    <div class="account-option" onclick="toggleAccountPanel('finesPanel')">
+                        <span class="account-icon">💰</span>
+                        <h4>Pay Fines</h4>
+                        <p>Clear outstanding overdue penalties.</p>
+                        <button class="btn btn-primary-small">Pay Now</button>
+                    </div>
+                </div>
+
+                <div class="account-forms">
+                    <!-- Password Panel -->
+                    <div id="passwordPanel" class="account-form-panel">
+                        <h3>Reset Library Password</h3>
+                        <form class="account-form">
+                            <div class="form-row">
+                                <input type="password" placeholder="Current Password" required />
+                            </div>
+                            <div class="form-row">
+                                <input type="password" placeholder="New Password" required />
+                            </div>
+                            <div class="form-row">
+                                <input type="password" placeholder="Confirm New Password" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </form>
+                    </div>
+
+                    <!-- Loans Panel -->
+                    <div id="loansPanel" class="account-form-panel">
+                        <h3>Active Loans & History</h3>
+                        <div class="loan-table">
+                            <div class="loan-header">
+                                <span>Title</span>
+                                <span>Due Date</span>
+                                <span>Status</span>
+                                <span>Action</span>
+                            </div>
+                            <div class="loan-item">
+                                <span>Introduction to AI</span>
+                                <span>May 15, 2026</span>
+                                <span class="status active">Active</span>
+                                <button class="btn btn-secondary">Renew</button>
+                            </div>
+                            <div class="loan-item">
+                                <span>Web Development 101</span>
+                                <span>Apr 20, 2026</span>
+                                <span class="status returned">Returned</span>
+                                <span>-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fines Panel -->
+                    <div id="finesPanel" class="account-form-panel">
+                        <h3>Outstanding Fines</h3>
+                        <div class="contact-card" style="margin-bottom: 1.5rem;">
+                            <h4>Current Balance: <span style="color: #e53e3e;">UGX 5,000</span></h4>
+                            <p>Fine for: Late return of "Data Science Basics"</p>
+                        </div>
+                        <form class="account-form">
+                            <select class="form-control" required>
+                                <option value="">Select Payment Method</option>
+                                <option value="momo">MTN Mobile Money</option>
+                                <option value="airtel">Airtel Money</option>
+                                <option value="card">Credit/Debit Card</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us with WhatsApp and Map -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Contact Us</h2>
+                    <p>Get in touch with our support specialists.</p>
+                </div>
+
+                <div class="contact-grid-wide">
+                    <div class="contact-panel">
+                        <div class="form-intro">
+                            <span class="badge">Direct Support</span>
+                            <h3>Send us a Message</h3>
+                        </div>
+                        <form class="contact-form">
+                            <div class="form-row">
+                                <input type="text" placeholder="Your Name" required />
+                                <input type="email" placeholder="Email Address" required />
+                            </div>
+                            <div class="form-row">
+                                <select required>
+                                    <option value="">Inquiry Type</option>
+                                    <option value="tech">Technical Issue</option>
+                                    <option value="resource">Resource Access</option>
+                                    <option value="other">General Inquiry</option>
+                                </select>
+                            </div>
+                            <textarea placeholder="How can we help you today?" required></textarea>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+
+                    <div class="contact-info-sidebar">
+                        <div class="contact-card" style="text-align: center; border: 2px solid #25D366; background: #f0fff4;">
+                            <i class="fab fa-whatsapp" style="font-size: 3rem; color: #25D366; margin-bottom: 1rem;"></i>
+                            <h4>WhatsApp Support</h4>
+                            <p>Fastest way to get a quick answer.</p>
+                            <a href="https://wa.me/256750135338" target="_blank" class="btn btn-primary" style="background: #25D366; border: none;">
+                                Chat on WhatsApp
+                            </a>
+                        </div>
+                        
+                        <div class="contact-cards" style="margin-top: 1.5rem;">
+                            <div class="contact-card">
+                                <h4>📞 Call Us</h4>
+                                <p>+256 312 351400</p>
+                            </div>
+                            <div class="contact-card">
+                                <h4>📍 Location</h4>
+                                <p>Library Building, Main Campus</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Integration -->
+                <div class="map-container" style="margin-top: 3rem; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg);">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15958.118742547704!2d32.6358333!3d0.575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177db749f7830113%3A0xc391152a5598686d!2sBugema%20University!5e0!3m2!1sen!2sug!4v1714312345678!5m2!1sen!2sug" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+
+
+                <div class="account-forms">
+                    <!-- Password Panel -->
+                    <div id="passwordPanel" class="account-form-panel">
+                        <h3>Reset Library Password</h3>
+                        <form class="account-form">
+                            <div class="form-row">
+                                <input type="password" placeholder="Current Password" required />
+                            </div>
+                            <div class="form-row">
+                                <input type="password" placeholder="New Password" required />
+                            </div>
+                            <div class="form-row">
+                                <input type="password" placeholder="Confirm New Password" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </form>
+                    </div>
+
+                  
+                    <!-- Loans Panel -->
+                    <div id="loansPanel" class="account-form-panel">
+                        <h3>Active Loans & History</h3>
+                        <div class="loan-table">
+                            <div class="loan-header">
+                                <span>Title</span>
+                                <span>Due Date</span>
+                                <span>Status</span>
+                                <span>Action</span>
+                            </div>
+                            <div class="loan-item">
+                                <span>Introduction to AI</span>
+                                <span>May 15, 2026</span>
+                                <span class="status active">Active</span>
+                                <button class="btn btn-secondary">Renew</button>
+                            </div>
+                            <div class="loan-item">
+                                <span>Web Development 101</span>
+                                <span>Apr 20, 2026</span>
+                                <span class="status returned">Returned</span>
+                                <span>-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fines Panel -->
+                    <div id="finesPanel" class="account-form-panel">
+                        <h3>Outstanding Fines</h3>
+                        <div class="contact-card" style="margin-bottom: 1.5rem;">
+                            <h4>Current Balance: <span style="color: #e53e3e;">UGX 5,000</span></h4>
+                            <p>Fine for: Late return of "Data Science Basics"</p>
+                        </div>
+                        <form class="account-form">
+                            <select class="form-control" required>
+                                <option value="">Select Payment Method</option>
+                                <option value="momo">MTN Mobile Money</option>
+                                <option value="airtel">Airtel Money</option>
+                                <option value="card">Credit/Debit Card</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+               
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h4>BU E-Library Portal</h4>
+                <p>Empowering Knowledge, Enabling Excellence</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐦</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 BU E-Library Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    
