@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gateway | BU E-Library Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        .gateway-body {
+            background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .login-card {
+            background: var(--surface);
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            border-radius: 50%;
+            border: 4px solid var(--accent-light);
+        }
+        .login-header h1 { color: var(--primary); margin-bottom: 0.5rem; }
+        .login-header p { color: var(--text-muted); margin-bottom: 2rem; }
+        .login-form { text-align: left; }
+        .login-footer { margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted); }
+        .error-msg { color: #e53e3e; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+        .success-msg { color: #2f855a; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+        .toggle-link { color: var(--primary); font-weight: 600; cursor: pointer; text-decoration: underline; }
+    </style>
+</head>
+<body class="gateway-body">
+    <div class="login-card">
+        <img src="Image2/logo.jpeg" alt="BU Logo" class="login-logo">
+        <div class="login-header">
+            <h1>The Gateway</h1>
+            <p id="gatewaySubtitle">Bugema University E-Library Portal</p>
+        </div>
+        
+        <!-- Login Form Section -->
+        <div id="loginSection">
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label>Student ID or Full Name</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-user" style="position: absolute; left: 1rem; top: 1rem; color: var(--text-light);"></i>
+                        <input type="text" id="userId" class="form-control" placeholder="Enter ID or Full Name" required style="padding-left: 2.8rem;">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Portal Password</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-lock" style="position: absolute; left: 1rem; top: 1rem; color: var(--text-light);"></i>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required style="padding-left: 2.8rem;">
+                    </div>
+                </div>
+                <div id="errorMsg" class="error-msg"></div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 2rem; padding: 1rem;">
+                    Enter Portal <i class="fas fa-sign-in-alt" style="margin-left: 0.5rem;"></i>
+                </button>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <span class="toggle-link" onclick="toggleForms()">Register here</span></p>
+                <p style="margin-top: 0.5rem;"><span class="toggle-link" onclick="showSection('forgot')">Forgot Password?</span></p>
+            </div>
+        </div>
+
+        <!-- Registration Form Section -->
+        <div id="registerSection" style="display: none;">
+            <form id="registerForm" class="login-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" class="form-control" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label>Assign Student ID</label>
+                    <input type="text" id="regId" class="form-control" placeholder="e.g. BU-2026-1234" required>
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label>User Role</label>
+                    <select id="regRole" class="form-control">
+                        <option value="Undergraduate">Undergraduate</option>
+                        <option value="Graduate Student">Graduate Student</option>
+                        <option value="Faculty">Faculty</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label>Create Password</label>
+                    <input type="password" id="regPass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div id="regMsg" class="error-msg"></div>
+                <div id="regSuccess" class="success-msg"><i class="fas fa-check-circle"></i> Account created! You can now login.</div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 2rem; padding: 1rem;">
+                    Create Account <i class="fas fa-user-plus" style="margin-left: 0.5rem;"></i>
+                </button>
+            </form>
+            <div class="login-footer">
+                <p>Already have an account? <span class="toggle-link" onclick="toggleForms()">Login here</span></p>
+            </div>
+        </div>
+
+        <!-- Forgot Password Section -->
+        <div id="forgotSection" style="display: none;">
+            <form id="forgotForm" class="login-form">
+                <div class="form-group">
+                    <label>Enter Student / Faculty ID</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-id-card" style="position: absolute; left: 1rem; top: 1rem; color: var(--text-light);"></i>
+                        <input type="text" id="forgotId" class="form-control" placeholder="BU-2026-XXXX" required style="padding-left: 2.8rem;">
+                    </div>
+                </div>
+                <div id="forgotError" class="error-msg"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem; padding: 1rem;">
+                    Verify ID <i class="fas fa-search" style="margin-left: 0.5rem;"></i>
+                </button>
+            </form>
+            <div class="login-footer">
+                <p><span class="toggle-link" onclick="showSection('login')">Back to Login</span></p>
+            </div>
+        </div>
+
+        <!-- Reset Password Section -->
+        <div id="resetSection" style="display: none;">
+            <form id="resetForm" class="login-form">
+                <p style="font-size: 0.9rem; margin-bottom: 1.5rem; color: var(--text-muted);">Resetting password for: <span id="resetUserDisplay" style="font-weight: 700; color: var(--primary);"></span></p>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="newPass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div id="resetError" class="error-msg"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 2rem; padding: 1rem;">
+                    Update Password <i class="fas fa-save" style="margin-left: 0.5rem;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 1. Initialize Database in LocalStorage
+        const defaultUsers = [
+            { id: "BU-2026-0891", name: "Brian Okello", role: "Undergraduate", pass: "123456" },
+            { id: "BU-2024-0012", name: "Sarah Amen", role: "Faculty", pass: "123456" },
+            { id: "BU-2025-0550", name: "John Doe", role: "Graduate Student", pass: "123456" },
+            { id: "BU-ADMIN", name: "Chief Librarian", role: "Admin", pass: "123456" }
+        ];
+
+        if (!localStorage.getItem('userDB')) {
+            localStorage.setItem('userDB', JSON.stringify(defaultUsers));
+        }
+
+        // If already logged in, redirect to home immediately
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'index.html';
+        }
+
+        // Check if we are here because of a redirect from a protected page
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('redirect')) {
+                const subtitle = document.getElementById('gatewaySubtitle');
+                subtitle.innerHTML = '<i class="fas fa-lock"></i> Please login to access your account';
+                subtitle.style.color = '#e53e3e';
+            }
+        });
+
+        function showSection(section) {
+            const sections = ['loginSection', 'registerSection', 'forgotSection', 'resetSection'];
+            sections.forEach(s => {
+                document.getElementById(s).style.display = s === section + 'Section' ? 'block' : 'none';
+            });
+            // Clear all messages
+            document.querySelectorAll('.error-msg, .success-msg').forEach(m => m.style.display = 'none');
+        }
+
+        function toggleForms() {
+            const isLogin = document.getElementById('loginSection').style.display !== 'none';
+            showSection(isLogin ? 'register' : 'login');
+        }
+
+        let resettingUserId = '';
+
+        // 2. Handle Registration
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const db = JSON.parse(localStorage.getItem('userDB'));
+            const newUser = {
+                id: document.getElementById('regId').value,
+                name: document.getElementById('regName').value,
+                role: document.getElementById('regRole').value,
+                pass: document.getElementById('regPass').value
+            };
+
+            // Check if ID exists
+            if (db.some(u => u.id === newUser.id)) {
+                const msg = document.getElementById('regMsg');
+                msg.textContent = "Error: User ID already exists.";
+                msg.style.display = 'block';
+                return;
+            }
+
+            db.push(newUser);
+            localStorage.setItem('userDB', JSON.stringify(db));
+            document.getElementById('regMsg').style.display = 'none';
+            document.getElementById('regSuccess').style.display = 'block';
+            e.target.reset();
+        });
+
+        // 3. Handle Login
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const db = JSON.parse(localStorage.getItem('userDB'));
+            const userId = document.getElementById('userId').value;
+            const passwordInput = document.getElementById('password').value;
+            
+            // Find user by ID or Name (Case Insensitive for a better experience)
+            const user = db.find(u => 
+                (u.id.toLowerCase() === userId.toLowerCase() || u.name.toLowerCase() === userId.toLowerCase()) 
+                && u.pass === passwordInput
+            );
+
+            if (user) {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userName', user.name);
+                localStorage.setItem('userId', user.id);
+                localStorage.setItem('userRole', user.role);
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirectTo = urlParams.get('redirect') || 'index.html';
+                window.location.href = redirectTo;
+            } else {
+                const error = document.getElementById('errorMsg');
+                error.innerHTML = `<i class="fas fa-exclamation-circle"></i> Access Denied: Incorrect ID/Name or Password.`;
+                error.style.display = 'block';
+            }
+        });
+
+        // 4. Handle Forgot Password
+        document.getElementById('forgotForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const db = JSON.parse(localStorage.getItem('userDB'));
+            const id = document.getElementById('forgotId').value;
+            const user = db.find(u => u.id === id);
+
+            if (user) {
+                resettingUserId = id;
+                document.getElementById('resetUserDisplay').textContent = user.name;
+                showSection('reset');
+            } else {
+                const error = document.getElementById('forgotError');
+                error.textContent = "Error: User ID not found.";
+                error.style.display = 'block';
+            }
+        });
+
+        // 5. Handle Password Reset
+        document.getElementById('resetForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const db = JSON.parse(localStorage.getItem('userDB'));
+            const newPass = document.getElementById('newPass').value;
+            const userIndex = db.findIndex(u => u.id === resettingUserId);
+            if (userIndex !== -1) {
+                db[userIndex].pass = newPass;
+                localStorage.setItem('userDB', JSON.stringify(db));
+                alert('Password reset successful! Please login with your new password.');
+                showSection('login');
+            }
+        });
+    </script>
+</body>
+</html>
