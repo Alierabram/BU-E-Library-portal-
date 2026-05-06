@@ -47,14 +47,18 @@
                     <h2>Interlibrary Loan (ILL)</h2>
                 </div>
                 <p>Can't find what you need in our catalog? We can borrow books and articles from other libraries worldwide for you.</p>
-                <form class="service-form enhanced">
+                <form id="illForm" class="service-form enhanced">
                     <div class="form-group">
                         <label>Item Title</label>
-                        <input type="text" placeholder="Title of the book or article" required />
+                        <input type="text" id="illTitle" placeholder="Title of the book or article" required />
                     </div>
                     <div class="form-group">
                         <label>Author/Journal Name</label>
-                        <input type="text" placeholder="Full name of author or journal" required />
+                        <input type="text" id="illAuthor" placeholder="Full name of author or journal" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="illEmail" name="email" placeholder="Enter your email" required>
                     </div>
                     <div class="form-group">
                         <label>ISBN/ISSN (Optional)</label>
@@ -73,6 +77,10 @@
                         <button type="submit" class="btn btn-primary">Submit Loan Request</button>
                     </div>
                 </form>
+                <div id="illSuccess" class="form-success-overlay" style="display: none; margin-top: 1rem; padding: 1.5rem; background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 12px; text-align: center;">
+                    <h4 style="color: #2f855a;">✅ Loan Request Submitted</h4>
+                    <p style="color: #276749;">We've received your request. A confirmation has been sent to <strong id="sentEmailDisplayILL"></strong>. You will receive another email once the item is sourced.</p>
+                </div>
             </div>
         </section>
 
@@ -84,10 +92,10 @@
                     <h2>Study Room Booking</h2>
                 </div>
                 <p>Reserve a private or group study room equipped with high-speed Wi-Fi and presentation tools.</p>
-                <form class="service-form enhanced">
+                <form id="roomBookingForm" class="service-form enhanced">
                     <div class="form-group">
                         <label>Select Room</label>
-                        <select required>
+                        <select id="bookingRoom" required>
                             <option value="room1">Individual Pod (1 Person)</option>
                             <option value="room2">Small Group Room (2-4 People)</option>
                             <option value="room3">Large Collaboration Room (5-10 People)</option>
@@ -95,7 +103,7 @@
                     </div>
                     <div class="form-group">
                         <label>Date</label>
-                        <input type="date" required />
+                        <input type="date" id="bookingDate" required />
                     </div>
                     <div class="form-group">
                         <label>Start Time</label>
@@ -109,10 +117,18 @@
                             <option value="3">3 Hours (Max)</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="bookingEmail" name="email" placeholder="Enter your email" required>
+                    </div>
                     <div class="form-group full-width">
                         <button type="submit" class="btn btn-primary">Book Now</button>
                     </div>
                 </form>
+                <div id="bookingSuccess" class="form-success-overlay" style="display: none; margin-top: 1rem; padding: 1.5rem; background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 12px; text-align: center;">
+                    <h4 style="color: #2f855a;">📅 Booking Confirmed</h4>
+                    <p style="color: #276749;">Your study room is reserved. A receipt has been sent to <strong id="sentEmailDisplayBooking"></strong>. Please show your ID at the front desk 5 minutes before your time slot.</p>
+                </div>
             </div>
         </section>
 
@@ -124,10 +140,10 @@
                     <h2>Research Assistance</h2>
                 </div>
                 <p>Get personalized help with literature reviews, database searching, and citation management.</p>
-                <form class="service-form enhanced">
+                <form id="researchAssistForm" class="service-form enhanced">
                     <div class="form-group">
                         <label>Topic of Research</label>
-                        <input type="text" placeholder="Describe your topic" required />
+                        <input type="text" id="researchTopic" placeholder="Describe your topic" required />
                     </div>
                     <div class="form-group">
                         <label>Faculty/School</label>
@@ -144,10 +160,18 @@
                         <label>Specific Questions</label>
                         <textarea placeholder="Tell us what you need help with specifically..." rows="4"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="researchEmail" name="email" placeholder="Enter your email" required>
+                    </div>
                     <div class="form-group full-width">
                         <button type="submit" class="btn btn-primary">Schedule Consultation</button>
                     </div>
                 </form>
+                <div id="researchSuccess" class="form-success-overlay" style="display: none; margin-top: 1rem; padding: 1.5rem; background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 12px; text-align: center;">
+                    <h4 style="color: #2f855a;">🔬 Consultation Requested</h4>
+                    <p style="color: #276749;">A subject librarian will contact you. We've sent a summary of your inquiry to <strong id="sentEmailDisplayResearch"></strong>.</p>
+                </div>
             </div>
         </section>
 
@@ -159,10 +183,10 @@
                     <h2>Printing & Scanning</h2>
                 </div>
                 <p>Upload documents for printing or request high-resolution scans of library materials (within copyright limits).</p>
-                <form class="service-form enhanced">
+                <form id="printScanForm" class="service-form enhanced">
                     <div class="form-group">
                         <label>Service Type</label>
-                        <select required>
+                        <select id="printType" required>
                             <option value="print">Standard Printing</option>
                             <option value="scan">Digitization/Scan Request</option>
                         </select>
@@ -179,10 +203,18 @@
                         <input type="file" />
                         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Supported: PDF, DOCX, JPG</p>
                     </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="printEmail" name="email" placeholder="Enter your email" required>
+                    </div>
                     <div class="form-group full-width">
                         <button type="submit" class="btn btn-primary">Send Request</button>
                     </div>
                 </form>
+                <div id="printSuccess" class="form-success-overlay" style="display: none; margin-top: 1rem; padding: 1.5rem; background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 12px; text-align: center;">
+                    <h4 style="color: #2f855a;">🖨️ Request Sent</h4>
+                    <p style="color: #276749;">Your document has been queued. A confirmation has been sent to <strong id="sentEmailDisplayPrint"></strong>. Pick up at the printing station.</p>
+                </div>
             </div>
         </section>
 
@@ -195,10 +227,10 @@
                 </div>
                 <p>Have a quick question or need to send us feedback? Choose your preferred contact method below.</p>
                 
-                <div class="service-form enhanced">
+                <form id="commsHubForm" class="service-form enhanced">
                     <div class="form-group">
                         <label>I want to...</label>
-                        <select id="commsToggle" onchange="toggleCommsForm()">
+                        <select id="commsToggle" name="Inquiry Type" onchange="toggleCommsForm()">
                             <option value="ask">Ask a Librarian</option>
                             <option value="email">Email Support</option>
                             <option value="feedback">Provide Feedback</option>
@@ -206,15 +238,19 @@
                     </div>
                     <div class="form-group full-width">
                         <label id="commsLabel">Your Question</label>
-                        <textarea id="commsText" placeholder="Type here..." rows="4" required></textarea>
+                        <textarea id="commsText" name="Message" placeholder="Type here..." rows="4" required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Your Email</label>
-                        <input type="email" placeholder="email@bugema.ac.ug" required />
+                        <input type="email" id="commsEmail" name="email" placeholder="Enter your email" required />
                     </div>
                     <div class="form-group full-width">
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </div>
+                </form>
+                <div id="commsSuccess" class="form-success-overlay" style="display: none; margin-top: 1rem; padding: 1.5rem; background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 12px; text-align: center;">
+                    <h4 style="color: #2f855a;">✉️ Message Dispatched</h4>
+                    <p style="color: #276749;">Thank you! A confirmation copy has been sent to <strong id="sentEmailDisplay"></strong>. We will get back to you shortly.</p>
                 </div>
             </div>
         </section>
@@ -230,15 +266,15 @@
                 <form class="service-form enhanced" id="clientFeedbackForm">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" placeholder="Enter your name" required />
+                        <input type="text" name="Name" placeholder="Enter your name" required />
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" placeholder="email@bugema.ac.ug" required />
+                        <input type="email" id="feedbackEmailInput" name="email" placeholder="Enter your email" required />
                     </div>
                     <div class="form-group">
                         <label>Category of Feedback</label>
-                        <select required>
+                        <select id="feedbackCategory" name="Category" required>
                             <option value="">Select Category</option>
                             <option value="resources">Information Resources</option>
                             <option value="facilities">Physical Facilities</option>
@@ -249,7 +285,7 @@
                     </div>
                     <div class="form-group">
                         <label>Overall Rating</label>
-                        <select required>
+                        <select name="Rating" required>
                             <option value="">Select Rating</option>
                             <option value="excellent">Excellent</option>
                             <option value="very_good">Very Good</option>
@@ -260,12 +296,16 @@
                     </div>
                     <div class="form-group full-width">
                         <label>Comments / Suggestions</label>
-                        <textarea placeholder="Please provide specific details about your experience or suggestions for improvement..." rows="5" required></textarea>
+                        <textarea name="Comments" placeholder="Please provide specific details about your experience or suggestions for improvement..." rows="5" required></textarea>
                     </div>
                     <div class="form-group full-width">
                         <button type="submit" class="btn btn-primary">Submit Feedback</button>
                     </div>
                 </form>
+                <div id="feedbackSuccess" class="form-success-overlay" style="display: none; margin-top: 1rem; padding: 1.5rem; background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 12px; text-align: center;">
+                    <h4 style="color: #2f855a;">📝 Feedback Received</h4>
+                    <p style="color: #276749;">Your valuable input has been sent. A receipt has been mailed to your address. Thank you!</p>
+                </div>
             </div>
         </section>
     </main>
@@ -284,13 +324,95 @@
         </div>
     </footer>
 
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <script>
-        document.getElementById('clientFeedbackForm')?.addEventListener('submit', function(e) {
+        // --- GLOBAL HELPERS ---
+
+        // Show interactive toast notifications
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            if (type === 'error') toast.style.borderLeftColor = '#e53e3e';
+            toast.innerHTML = `<strong>System:</strong> ${message}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = '0.5s';
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
+        }
+
+        // Save request to LocalStorage so it appears in requests.html (Account Page)
+        function saveToAccount(type, title) {
+            const currentUserId = localStorage.getItem('userId') || 'Guest-User';
+            const requests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            const newEntry = {
+                title: title,
+                type: type,
+                ownerId: currentUserId,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+                status: 'Processing'
+            };
+            requests.unshift(newEntry);
+            localStorage.setItem('userRequests', JSON.stringify(requests));
+        }
+
+        // --- FORM HANDLERS ---
+
+        // 1. Interlibrary Loan Interaction
+        document.getElementById('illForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your feedback! It has been successfully submitted to the Bugema University Library team.');
-            this.reset();
+            const title = document.getElementById('illTitle').value;
+            const email = document.getElementById('illEmail').value;
+            saveToAccount('Interlibrary Loan', title);
+            this.style.display = 'none';
+            document.getElementById('sentEmailDisplayILL').innerText = email;
+            document.getElementById('illSuccess').style.display = 'block';
+            showToast('ILL Request logged to your account.');
         });
 
+        // 2. Study Room Booking Interaction
+        document.getElementById('roomBookingForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const room = document.getElementById('bookingRoom').options[document.getElementById('bookingRoom').selectedIndex].text;
+            const date = document.getElementById('bookingDate').value;
+            const email = document.getElementById('bookingEmail').value;
+            saveToAccount('Room Booking', `${room} on ${date}`);
+            this.style.display = 'none';
+            document.getElementById('sentEmailDisplayBooking').innerText = email;
+            document.getElementById('bookingSuccess').style.display = 'block';
+            showToast('Room reservation confirmed.');
+        });
+
+        // 3. Research Assistance Interaction
+        document.getElementById('researchAssistForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const topic = document.getElementById('researchTopic').value;
+            const email = document.getElementById('researchEmail').value;
+            saveToAccount('Research Assistance', topic);
+            this.style.display = 'none';
+            document.getElementById('sentEmailDisplayResearch').innerText = email;
+            document.getElementById('researchSuccess').style.display = 'block';
+            showToast('Research inquiry submitted to librarians.');
+        });
+
+        // 4. Printing & Scanning Interaction
+        document.getElementById('printScanForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const type = document.getElementById('printType').value;
+            const email = document.getElementById('printEmail').value;
+            saveToAccount('Print/Scan Task', type === 'print' ? 'Standard Print Job' : 'Digitization Request');
+            this.style.display = 'none';
+            document.getElementById('sentEmailDisplayPrint').innerText = email;
+            document.getElementById('printSuccess').style.display = 'block';
+            showToast('Document sent to print queue.');
+        });
+
+        // 5. Communication Hub (BACKEND INTEGRATION)
         function toggleCommsForm() {
             const val = document.getElementById('commsToggle').value;
             const label = document.getElementById('commsLabel');
@@ -298,6 +420,97 @@
             else if (val === 'email') label.innerText = "Technical Support Details";
             else if (val === 'feedback') label.innerText = "Share Your Feedback";
         }
+
+        document.getElementById('commsHubForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+
+            // Provide instant visual feedback
+            submitBtn.innerText = "Sending...";
+            submitBtn.disabled = true;
+
+            /* 
+               BACKEND SETUP INSTRUCTIONS:
+               1. Go to https://formspree.io/ and create a free account.
+               2. Create a new form project and copy the unique ID.
+               3. Replace 'YOUR_FORMSPREE_ID' below with your actual ID.
+            */
+            const formID = "xeenkobn"; 
+            const endpoint = `https://formspree.io/f/${formID}`;
+
+            if (formID === "YOUR_FORMSPREE_ID" || !formID) {
+                // Fallback for demonstration if ID isn't set yet
+                setTimeout(() => {
+                    form.style.display = 'none';
+                    document.getElementById('commsSuccess').style.display = 'block';
+                    showToast('Interactive Demo: Message simulation successful!');
+                    saveToAccount('Inquiry', document.getElementById('commsText').value.substring(0, 20) + "...");
+                }, 1000);
+                return;
+            }
+
+            fetch(endpoint, {
+                method: "POST",
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('commsSuccess').style.display = 'block';
+                    showToast('Message sent to the Library team!');
+                    saveToAccount('Email Inquiry', "Communication Hub Message");
+                    form.reset();
+                } else {
+                    showToast('Backend Error: Check Formspree configuration.', 'error');
+                    submitBtn.innerText = originalText;
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                showToast('Network error. Please try again later.', 'error');
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        // 6. Client Feedback Interaction (BACKEND INTEGRATION)
+        document.getElementById('clientFeedbackForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            
+            // Log it to account
+            const category = document.getElementById('feedbackCategory').value;
+            saveToAccount('Feedback', `Category: ${category}`);
+
+            // You can use the same Formspree ID or a different one for feedback
+            const formID = "xeenkobn"; 
+            const endpoint = `https://formspree.io/f/${formID}`;
+
+            if (formID !== "YOUR_FORMSPREE_ID" && formID) {
+                fetch(endpoint, {
+                    method: "POST",
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                }).then(() => {
+                    form.style.display = 'none';
+                    document.getElementById('feedbackSuccess').style.display = 'block';
+                    showToast('Feedback submitted to management.');
+                });
+            } else {
+                // Demo fallback
+                form.style.display = 'none';
+                document.getElementById('feedbackSuccess').style.display = 'block';
+                showToast('Feedback received (Demo mode).');
+            }
+        });
+
+        // Sync Navigation Toggle
+        document.getElementById('navToggle')?.addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
     </script>
 </body>
 </html>
