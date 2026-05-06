@@ -725,6 +725,23 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Rating Form Styles */
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+        }
+        .star-rating input { display: none; }
+        .star-rating label { color: #cbd5e0; cursor: pointer; transition: var(--transition); }
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label { 
+            color: var(--accent); 
+        }
+        .review-stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.5rem; }
     </style>
 </head>
 <body>
@@ -747,6 +764,7 @@
                 <a href="services.html" class="nav-link">Services</a>
                 <a href="special collections.html" class="nav-link">Special Collections</a>
                 <a href="support.html" class="nav-link">Support</a>
+                <a href="requests.html" class="nav-link">👤 Account</a>
             </div>
         </div>
     </nav>
@@ -777,6 +795,9 @@
             </button>
             <button class="tab-btn" data-tab="nomination">
                 <i class="fas fa-trophy"></i> Book of Month
+            </button>
+            <button class="tab-btn" data-tab="ratings">
+                <i class="fas fa-star"></i> Ratings & Reviews
             </button>
             <button class="tab-btn" data-tab="arrivals">
                 <i class="fas fa-book-open"></i> New Arrivals
@@ -1129,6 +1150,56 @@
                     </div>
                     <div class="book-cover" style="background-image: url('Image2/Books4.jpeg');" title="Click to view details">
                         <i class="fas fa-book"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ratings & Reviews Tab -->
+        <div class="tab-content" id="ratings">
+            <div class="form-section">
+                <h2><i class="fas fa-star"></i> Rate a Resource</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Help your fellow students find the best resources by sharing your reading experience.</p>
+                
+                <form id="ratingForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Resource Title <span class="required">*</span></label>
+                            <input type="text" class="form-control" placeholder="Search for book title..." id="ratingBookTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Rating <span class="required">*</span></label>
+                            <div class="star-rating">
+                                <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Review Comment</label>
+                        <textarea class="form-control" placeholder="What did you think of this resource? (optional)" id="ratingComment"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Post Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="form-section">
+                <h2><i class="fas fa-comments"></i> Community Reviews</h2>
+                <div id="recentReviews" class="news-grid">
+                    <div class="news-card">
+                        <div class="news-content">
+                            <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <h3 class="news-title">Research Methodology</h3>
+                            <p class="news-excerpt">"Excellent resource for understanding fundamental research techniques. A must-read for final year students."</p>
+                            <div class="news-date">- Brian O. (Final Year Education)</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1557,6 +1628,21 @@
             grid.innerHTML = html;
         }
 
+        // Helper to save requests to account (simulation)
+        function saveRequestToAccount(type, title) {
+            const currentUserId = localStorage.getItem('userId') || 'Anonymous';
+            const requests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            const newRequest = {
+                title: title,
+                type: type,
+                ownerId: currentUserId,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+                status: 'Processing'
+            };
+            requests.unshift(newRequest);
+            localStorage.setItem('userRequests', JSON.stringify(requests));
+        }
+
         function changeMonth(delta) {
             currentDate.setMonth(currentDate.getMonth() + delta);
             renderCalendar();
@@ -1645,19 +1731,63 @@
 
         document.getElementById('ebookRequestForm').addEventListener('submit', (e) => {
             e.preventDefault();
+            const title = e.target.querySelector('input[placeholder="Enter book title"]').value;
+            saveRequestToAccount('E-Book/Audio Request', title);
             showToast('E-Book/Audiobook request submitted!', 'success');
             e.target.reset();
         });
 
+        // Rating Form Logic
+        document.getElementById('ratingForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('ratingBookTitle').value;
+            const rating = document.querySelector('input[name="rating"]:checked').value;
+            const comment = document.getElementById('ratingComment').value;
+            
+            const reviewContainer = document.getElementById('recentReviews');
+            const newReview = document.createElement('div');
+            newReview.className = 'news-card';
+            
+            let starsHtml = '';
+            for(let i=1; i<=5; i++) {
+                starsHtml += `<i class="fas fa-star" style="color: ${i <= rating ? 'var(--accent)' : '#cbd5e0'}"></i>`;
+            }
+
+            newReview.innerHTML = `
+                <div class="news-content">
+                    <div class="review-stars">${starsHtml}</div>
+                    <h3 class="news-title">${title}</h3>
+                    <p class="news-excerpt">"${comment || 'No comment provided.'}"</p>
+                    <div class="news-date">- Just Now (Verified Student)</div>
+                </div>
+            `;
+            
+            reviewContainer.prepend(newReview);
+            showToast('Review posted successfully!', 'success');
+            e.target.reset();
+        });
+
+
         document.getElementById('specialMaterialsForm').addEventListener('submit', (e) => {
             e.preventDefault();
+            const type = e.target.querySelector('select').value;
+            saveRequestToAccount('Special Material', type.charAt(0).toUpperCase() + type.slice(1));
             showToast('Special materials request submitted!', 'success');
+            e.target.reset();
+        });
+
+        document.getElementById('interlibraryForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = e.target.querySelector('input[placeholder="Book/Journal title"]').value;
+            saveRequestToAccount('Interlibrary Loan', title);
+            showToast('Interlibrary loan request submitted!', 'success');
             e.target.reset();
         });
 
         // Modal form submissions
         document.getElementById('modalEbookForm').addEventListener('submit', (e) => {
             e.preventDefault();
+            saveRequestToAccount('E-Book Request', e.target.querySelector('input').value);
             showToast('Request submitted successfully!', 'success');
             closeModal('ebookModal');
             e.target.reset();
@@ -1665,6 +1795,7 @@
 
         document.getElementById('modalInterlibraryForm').addEventListener('submit', (e) => {
             e.preventDefault();
+            saveRequestToAccount('Interlibrary Loan', e.target.querySelector('input').value);
             showToast('Interlibrary loan request submitted!', 'success');
             closeModal('interlibraryModal');
             e.target.reset();
@@ -1672,6 +1803,7 @@
 
         document.getElementById('modalSpecialForm').addEventListener('submit', (e) => {
             e.preventDefault();
+            saveRequestToAccount('Special Material', e.target.querySelector('select').value);
             showToast('Special materials request submitted!', 'success');
             closeModal('specialModal');
             e.target.reset();
