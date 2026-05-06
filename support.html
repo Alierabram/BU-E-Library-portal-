@@ -27,6 +27,7 @@
                 <a href="services.html" class="nav-link">Services</a>
                 <a href="special collections.html" class="nav-link">Special Collections</a>
                 <a href="support.html" class="nav-link active">Support</a>
+                <a href="requests.html" class="nav-link">👤 Account</a>
             </div>
         </div>
     </nav>
@@ -123,53 +124,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Account Management Section -->
-        <section class="account-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Account Management</h2>
-                    <p>Manage your library profile, check loan status, and settle fines.</p>
-                </div>
-                
-                <div class="account-grid">
-                    <div class="account-option" onclick="toggleAccountPanel('passwordPanel')">
-                        <span class="account-icon">🔐</span>
-                        <h4>Reset Password</h4>
-                        <p>Change or recover your access credentials.</p>
-                        <button class="btn btn-primary-small">Manage</button>
-                    </div>
-                    <div class="account-option" onclick="toggleAccountPanel('loansPanel')">
-                        <span class="account-icon">📚</span>
-                        <h4>My Loans</h4>
-                        <p>View active books and renewal dates.</p>
-                        <button class="btn btn-primary-small">View Loans</button>
-                    </div>
-                    <div class="account-option" onclick="toggleAccountPanel('finesPanel')">
-                        <span class="account-icon">💰</span>
-                        <h4>Pay Fines</h4>
-                        <p>Clear outstanding overdue penalties.</p>
-                        <button class="btn btn-primary-small">Pay Now</button>
-                    </div>
-                </div>
-
-                <div class="account-forms">
-                    <!-- Password Panel -->
-                    <div id="passwordPanel" class="account-form-panel">
-                        <h3>Reset Library Password</h3>
-                        <form class="account-form">
-                            <div class="form-row">
-                                <input type="password" placeholder="Current Password" required />
-                            </div>
-                            <div class="form-row">
-                                <input type="password" placeholder="New Password" required />
-                            </div>
-                            <div class="form-row">
-                                <input type="password" placeholder="Confirm New Password" required />
-                            </div>
-                            <button type="submit" class="btn btn-primary">Update Password</button>
-                        </form>
-                    </div>
 
                     <!-- Loans Panel -->
                     <div id="loansPanel" class="account-form-panel">
@@ -329,6 +283,25 @@
                                 <span>Apr 20, 2026</span>
                                 <span class="status returned">Returned</span>
                                 <span>-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Requests Panel -->
+                    <div id="requestsPanel" class="account-form-panel">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                            <h3 style="margin-bottom: 0;">My Submitted Requests</h3>
+                            <div style="position: relative; flex: 1; max-width: 300px;">
+                                <input type="text" id="requestSearchInput" class="form-control" placeholder="Search my requests..." style="padding: 0.6rem 1rem 0.6rem 2.5rem;">
+                                <i class="fas fa-search" style="position: absolute; left: 1rem; top: 0.8rem; color: var(--text-light);"></i>
+                            </div>
+                        </div>
+                        <div class="loan-table" id="requestsTableContainer">
+                            <div class="loan-header" style="grid-template-columns: 1.5fr 1fr 1fr 1fr;">
+                                <span>Item Title</span>
+                                <span>Request Type</span>
+                                <span>Submitted</span>
+                                <span>Status</span>
                             </div>
                         </div>
                     </div>
