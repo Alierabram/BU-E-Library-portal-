@@ -126,7 +126,7 @@
                 <h3>Archives Research Request</h3>
                 <button class="modal-close" onclick="closeModal('archivesModal')">&times;</button>
             </div>
-            <form class="special-collections-form" onsubmit="handleFormSubmit(event)">
+            <form class="special-collections-form" id="formArchives" onsubmit="handleFormSubmit(event)">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -139,11 +139,11 @@
                 </div>
                 <div class="form-group">
                     <label>Research Topic</label>
-                    <input type="text" placeholder="Historical institutional analysis..." required />
+                    <input type="text" id="archivesTopic" placeholder="Historical institutional analysis..." required />
                 </div>
                 <div class="form-group">
                     <label>Description of Materials</label>
-                    <textarea placeholder="Describe specific archival documents or records needed..." rows="4" required></textarea>
+                    <textarea id="archivesDescription" placeholder="Describe specific archival documents or records needed..." rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-large">Submit Request</button>
             </form>
@@ -162,7 +162,7 @@
                 <h3>Rare Books Consultation Form</h3>
                 <button class="modal-close" onclick="closeModal('rareBooksModal')">&times;</button>
             </div>
-            <form class="special-collections-form" onsubmit="handleFormSubmit(event)">
+            <form class="special-collections-form" id="formRareBooks" onsubmit="handleFormSubmit(event)">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -170,12 +170,12 @@
                     </div>
                     <div class="form-group">
                         <label>Book Title / ISBN</label>
-                        <input type="text" placeholder="The Great Controversy..." required />
+                        <input type="text" id="rareBookTitle" placeholder="The Great Controversy..." required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Purpose of Access</label>
-                    <textarea placeholder="Please explain why access to physical rare editions is required for your research..." rows="4" required></textarea>
+                    <textarea id="rareBookPurpose" placeholder="Please explain why access to physical rare editions is required for your research..." rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-large">Request Access</button>
             </form>
@@ -194,7 +194,7 @@
                 <h3>Author Collection Access</h3>
                 <button class="modal-close" onclick="closeModal('authorModal')">&times;</button>
             </div>
-            <form class="special-collections-form" onsubmit="handleFormSubmit(event)">
+            <form class="special-collections-form" id="formAuthor" onsubmit="handleFormSubmit(event)">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -202,7 +202,7 @@
                     </div>
                     <div class="form-group">
                         <label>Target Collection</label>
-                        <select required>
+                        <select id="authorCollection" required>
                             <option value="">Select Author Collection</option>
                             <option value="egw">Ellen G. White</option>
                             <option value="local">Local Authors</option>
@@ -212,7 +212,7 @@
                 </div>
                 <div class="form-group">
                     <label>Research Objectives</label>
-                    <textarea placeholder="Detail your research objectives for this collection..." rows="4" required></textarea>
+                    <textarea id="authorObjectives" placeholder="Detail your research objectives for this collection..." rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-large">Submit Inquiry</button>
             </form>
@@ -231,7 +231,7 @@
                 <h3>Special Materials Inquiry</h3>
                 <button class="modal-close" onclick="closeModal('materialsModal')">&times;</button>
             </div>
-            <form class="special-collections-form" onsubmit="handleFormSubmit(event)">
+            <form class="special-collections-form" id="formMaterials" onsubmit="handleFormSubmit(event)">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -239,7 +239,7 @@
                     </div>
                     <div class="form-group">
                         <label>Material Type</label>
-                        <select required>
+                        <select id="materialType" required>
                             <option value="">Type of Material</option>
                             <option value="film">Film / Video</option>
                             <option value="map">Historical Map</option>
@@ -249,7 +249,7 @@
                 </div>
                 <div class="form-group">
                     <label>Item Details & Intended Use</label>
-                    <textarea placeholder="Specify the exact item and why it is needed for your project..." rows="4" required></textarea>
+                    <textarea id="materialDetails" placeholder="Specify the exact item and why it is needed for your project..." rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-large">Submit Request</button>
             </form>
@@ -268,7 +268,7 @@
                 <h3>Exhibits Access Request</h3>
                 <button class="modal-close" onclick="closeModal('exhibitsModal')">&times;</button>
             </div>
-            <form class="special-collections-form" onsubmit="handleFormSubmit(event)">
+            <form class="special-collections-form" id="formExhibits" onsubmit="handleFormSubmit(event)">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -276,12 +276,12 @@
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" placeholder="email@example.com" required />
+                        <input type="email" id="exhibitsEmail" placeholder="email@example.com" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Exhibit Category</label>
-                    <select required>
+                    <select id="exhibitsCategory" required>
                         <option value="">Choose Exhibit Category</option>
                         <option value="history">BU Founding History</option>
                         <option value="cultural">Regional Cultural Heritage</option>
@@ -305,7 +305,7 @@
                 <h3>Manuscript Consultation Request</h3>
                 <button class="modal-close" onclick="closeModal('manuscriptsModal')">&times;</button>
             </div>
-            <form class="special-collections-form" onsubmit="handleFormSubmit(event)">
+            <form class="special-collections-form" id="formManuscripts" onsubmit="handleFormSubmit(event)">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Full Name</label>
@@ -313,12 +313,12 @@
                     </div>
                     <div class="form-group">
                         <label>Institutional ID</label>
-                        <input type="text" placeholder="BU-XXXX" required />
+                        <input type="text" id="manuscriptID" placeholder="BU-XXXX" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Specific Record Details</label>
-                    <textarea placeholder="Describe the handwritten records or correspondence requested for review..." rows="4" required></textarea>
+                    <textarea id="manuscriptDetails" placeholder="Describe the handwritten records or correspondence requested for review..." rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-large">Request Consultation</button>
             </form>
@@ -369,6 +369,32 @@
     </footer>
 
     <script>
+        // --- GLOBAL HELPERS (Duplicated for self-containment in this file) ---
+
+        // Show interactive toast notifications
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            if (type === 'error') toast.style.borderLeftColor = '#e53e3e';
+            toast.innerHTML = `<strong>System:</strong> ${message}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = '0.5s';
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
+        }
+
+        // Save request to LocalStorage so it appears in requests.html (Account Page)
+        function saveToAccount(type, title) {
+            const currentUserId = localStorage.getItem('userId') || 'Guest-User';
+            const requests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            requests.unshift({ title: title, type: type, ownerId: currentUserId, date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }), status: 'Processing' });
+            localStorage.setItem('userRequests', JSON.stringify(requests));
+        }
+
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
         navToggle.addEventListener('click', () => {
@@ -506,13 +532,54 @@
             const form = event.target;
             const modal = form.closest('.modal');
             const successMsg = modal.querySelector('.success-message');
+            let requestType = "Special Collection Request";
+            let requestTitle = "Unknown Item";
+
+            // Determine request type and title based on form ID
+            switch(form.id) {
+                case 'formArchives':
+                    requestType = "Archives Research";
+                    requestTitle = document.getElementById('archivesTopic').value || "Archival Document";
+                    break;
+                case 'formRareBooks':
+                    requestType = "Rare Books Consultation";
+                    requestTitle = document.getElementById('rareBookTitle').value || "Rare Book";
+                    break;
+                case 'formAuthor':
+                    requestType = "Author Collection Access";
+                    requestTitle = document.getElementById('authorCollection').value ? document.getElementById('authorCollection').options[document.getElementById('authorCollection').selectedIndex].text : "Author Collection";
+                    break;
+                case 'formMaterials':
+                    requestType = "Special Materials Inquiry";
+                    const materialType = document.getElementById('materialType').value ? document.getElementById('materialType').options[document.getElementById('materialType').selectedIndex].text : "Material";
+                    const materialDetails = document.getElementById('materialDetails').value;
+                    requestTitle = `${materialType}: ${materialDetails.substring(0, 30)}...`;
+                    break;
+                case 'formExhibits':
+                    requestType = "Digitized Exhibits Access";
+                    requestTitle = document.getElementById('exhibitsCategory').value ? document.getElementById('exhibitsCategory').options[document.getElementById('exhibitsCategory').selectedIndex].text : "Exhibit";
+                    break;
+                case 'formManuscripts':
+                    requestType = "Manuscript Consultation";
+                    requestTitle = document.getElementById('manuscriptDetails').value.substring(0, 30) + "...";
+                    break;
+                default:
+                    // Fallback
+                    requestType = "General Special Collection Request";
+                    requestTitle = "Item from Special Collections";
+            }
+
+            // Save to account
+            saveToAccount(requestType, requestTitle);
             
             if (successMsg) {
                 form.style.display = 'none';
                 successMsg.style.display = 'block';
+                showToast(`Request for "${requestTitle}" logged to your account.`, 'success');
             } else {
                 alert('Request submitted! Our curator will contact you via email.');
                 closeModal(form.closest('.modal-overlay').id);
+                showToast(`Request for "${requestTitle}" submitted.`, 'success');
             }
             event.target.reset();
         }
