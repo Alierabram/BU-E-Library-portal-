@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Requests | BU E-Library Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script>
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html?redirect=requests.html';
+        }
+    </script>
+    <style>
+        .requests-container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+        .search-database-box {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .search-input-wrapper { position: relative; flex: 1; }
+        .search-input-wrapper i { position: absolute; left: 1rem; top: 1.1rem; color: var(--text-light); }
+        .search-input-wrapper .form-control { padding-left: 2.8rem; }
+        
+        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .loader { display: none; text-align: center; padding: 3rem; color: var(--primary); }
+        
+        .request-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1fr 1fr;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .request-card:hover { border-color: var(--primary); transform: translateX(5px); }
+        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-align: center; }
+        .status-Processing { background: #fffbeb; color: #92400e; }
+        .status-Ready { background: #dcfce7; color: #15803d; }
+        .status-Declined { background: #fee2e2; color: #991b1b; }
+        .status-Completed { background: #e0f2fe; color: #0369a1; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="Image2/logo.jpeg" alt="BU Logo" class="nav-logo" />
+                    <div class="nav-text">
+                        <span class="university-name">BU E-Library</span>
+                        <span class="library-name">portal</span>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="Books.html" class="nav-link">Books</a>
+                <a href="support.html" class="nav-link">Support</a>
+                <a href="requests.html" class="nav-link active">👤 My Account</a>
+                <a href="login.html" class="nav-link" onclick="localStorage.removeItem('isLoggedIn')">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="requests-container">
+        <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+            <h1><i class="fas fa-history"></i> My Submission History</h1>
+            <p>Search and track all your resource requests submitted to the library database.</p>
+        </div>
+
+        <div class="search-database-box">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="dbSearchInput" class="form-control" placeholder="Search by book title, request type, or date...">
+            </div>
+            <button class="btn btn-primary" id="searchBtn">
+                <i class="fas fa-database"></i> Search Database
+            </button>
+        </div>
+
+        <div class="results-header">
+            <h3 id="resultStats">Loading your records...</h3>
+            <button class="btn btn-secondary" onclick="window.location.reload()" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                <i class="fas fa-sync"></i> Refresh
+            </button>
+        </div>
+
+        <div id="dbLoader" class="loader">
+            <i class="fas fa-spinner fa-spin fa-3x"></i>
+            <p style="margin-top: 1rem; font-weight: 500;">Querying Library Database...</p>
+        </div>
+
+        <div id="requestResultsList">
+            <!-- Results populated by JS -->
+        </div>
+    </div>
+
+    <script>
+        const searchBtn = document.getElementById('searchBtn');
+        const searchInput = document.getElementById('dbSearchInput');
+        const resultsList = document.getElementById('requestResultsList');
+        const loader = document.getElementById('dbLoader');
+        const stats = document.getElementById('resultStats');
+
+        function deleteRequest(index) {
+            if(!confirm('Are you sure you want to remove this record from the database?')) return;
+            let allRequests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            allRequests.splice(index, 1);
+            localStorage.setItem('userRequests', JSON.stringify(allRequests));
+            queryDatabase(searchInput.value);
+        }
+
+        function updateStatus(index, newStatus) {
+            let allRequests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            // We find the actual index in the full array by comparing data or passing full index
+            allRequests[index].status = newStatus;
+            localStorage.setItem('userRequests', JSON.stringify(allRequests));
+            showToast(`Status updated to ${newStatus}`, 'success');
+        }
+
+        function queryDatabase(term = '') {
+            const currentUserId = localStorage.getItem('userId');
+            const userRole = localStorage.getItem('userRole');
+            const allRequests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            
+            // Admin sees everything, Students only see their own
+            const userRecords = userRole === 'Admin' ? allRequests : allRequests.filter(req => req.ownerId === currentUserId);
+
+            const filtered = userRecords.filter(req => 
+                req.title.toLowerCase().includes(term.toLowerCase()) || 
+                req.type.toLowerCase().includes(term.toLowerCase()) ||
+                (req.ownerId && req.ownerId.toLowerCase().includes(term.toLowerCase()))
+            );
+
+            resultsList.style.opacity = '0.3';
+            loader.style.display = 'block';
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+                resultsList.style.opacity = '1';
+                resultsList.innerHTML = '';
+                
+                stats.innerHTML = `${filtered.length} Record(s) Found ${userRole === 'Admin' ? '<span class="badge" style="background:#fee2e2; color:#991b1b; margin-left:10px;">Admin Mode</span>' : ''}`;
+
+                if (filtered.length === 0) {
+                    resultsList.innerHTML = `<div style="text-align:center; padding: 4rem; color: var(--text-muted); background: white; border-radius: 12px;">No matching requests found in your history.</div>`;
+                    return;
+                }
+
+                filtered.forEach((req, index) => {
+                    const deleteBtn = userRole === 'Admin' ? 
+                        `<button onclick="deleteRequest(${index})" style="background:none; border:none; color:#e53e3e; cursor:pointer; padding:5px;"><i class="fas fa-trash"></i></button>` : '';
+                    
+                    const ownerInfo = userRole === 'Admin' ? 
+                        `<div style="font-size: 0.75rem; color: var(--primary); margin-top: 4px;"><strong>User:</strong> ${req.ownerId}</div>` : '';
+
+                    const statusControl = userRole === 'Admin' ? `
+                        <select onchange="updateStatus(${index}, this.value)" class="form-control" style="padding: 2px 8px; font-size: 0.8rem; width: auto; height: auto;">
+                            <option value="Processing" ${req.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                            <option value="Ready" ${req.status === 'Ready' ? 'selected' : ''}>Ready for Pickup</option>
+                            <option value="Completed" ${req.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                            <option value="Declined" ${req.status === 'Declined' ? 'selected' : ''}>Declined</option>
+                        </select>
+                    ` : `<div class="status-badge status-${req.status}">${req.status}</div>`;
+
+                    resultsList.innerHTML += `
+                        <div class="request-card">
+                            <div>
+                                <div style="font-weight: 600; color: var(--primary);">${req.title}</div>
+                                ${ownerInfo}
+                            </div>
+                            <div style="color: var(--text-muted); font-size: 0.9rem;">${req.type}</div>
+                            <div style="color: var(--text-light); font-size: 0.9rem;">${req.date}</div>
+                            <div style="display:flex; align-items:center; gap:10px; justify-content:flex-end;">
+                                ${statusControl}
+                                ${deleteBtn}
+                            </div>
+                        </div>
+                    `;
+                });
+            }, 600);
+        }
+
+        searchBtn.addEventListener('click', () => queryDatabase(searchInput.value));
+        searchInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') queryDatabase(searchInput.value); });
+
+        // Simple Toast for Feedback
+        function showToast(msg) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; bottom: 20px; right: 20px; 
+                background: var(--primary); color: white; 
+                padding: 1rem 2rem; border-radius: 8px; 
+                box-shadow: var(--shadow-lg); z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = '0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initial Load
+        window.onload = () => queryDatabase();
+    </script>
+</body>
+</html>
