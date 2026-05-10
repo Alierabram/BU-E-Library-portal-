@@ -96,7 +96,7 @@
 
         <div id="dbLoader" class="loader">
             <i class="fas fa-spinner fa-spin fa-3x"></i>
-            <p style="margin-top: 1rem; font-weight: 500;">Querying Library Database...</p>
+            <p style="margin-top: 1rem; font-weight: 500;">Retrieving Librarian's Feedback on Availability...</p>
         </div>
 
         <div id="requestResultsList">
@@ -127,7 +127,31 @@
             showToast(`Status updated to ${newStatus}`, 'success');
         }
 
-        function queryDatabase(term = '') {
+        // Automatically resolve processing requests after 4 seconds to simulate librarian feedback
+        function autoResolveProcessing() {
+            const userRole = localStorage.getItem('userRole');
+            if (userRole === 'Admin') return; 
+
+            let allRequests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+            const hasProcessing = allRequests.some(req => req.status === 'Processing');
+
+            if (hasProcessing) {
+                setTimeout(() => {
+                    const currentRequests = JSON.parse(localStorage.getItem('userRequests') || '[]');
+                    currentRequests.forEach(req => {
+                        if (req.status === 'Processing') {
+                            // Simulate backend decision: 70% chance Available, 30% Not Available
+                            req.status = Math.random() > 0.3 ? 'Ready' : 'Declined';
+                        }
+                    });
+                    localStorage.setItem('userRequests', JSON.stringify(currentRequests));
+                    queryDatabase(searchInput.value, true); // Refresh UI without the long 4s loader
+                    showToast("New feedback received from Librarian!");
+                }, 4000);
+            }
+        }
+
+        function queryDatabase(term = '', skipLongLoader = false) {
             const currentUserId = localStorage.getItem('userId');
             const userRole = localStorage.getItem('userRole');
             const allRequests = JSON.parse(localStorage.getItem('userRequests') || '[]');
@@ -141,8 +165,11 @@
                 (req.ownerId && req.ownerId.toLowerCase().includes(term.toLowerCase()))
             );
 
-            resultsList.style.opacity = '0.3';
-            loader.style.display = 'block';
+            if (!skipLongLoader) {
+                resultsList.style.opacity = '0.3';
+                loader.style.display = 'block';
+            }
+            stats.innerText = "Checking item status in database...";
 
             setTimeout(() => {
                 loader.style.display = 'none';
@@ -156,21 +183,37 @@
                     return;
                 }
 
-                filtered.forEach((req, index) => {
+                filtered.forEach((req) => {
+                    // Find the original index in the global array to ensure updates work correctly even when filtered
+                    const globalIndex = allRequests.findIndex(item => item === req);
+
                     const deleteBtn = userRole === 'Admin' ? 
-                        `<button onclick="deleteRequest(${index})" style="background:none; border:none; color:#e53e3e; cursor:pointer; padding:5px;"><i class="fas fa-trash"></i></button>` : '';
+                        `<button onclick="deleteRequest(${globalIndex})" style="background:none; border:none; color:#e53e3e; cursor:pointer; padding:5px;"><i class="fas fa-trash"></i></button>` : '';
                     
                     const ownerInfo = userRole === 'Admin' ? 
                         `<div style="font-size: 0.75rem; color: var(--primary); margin-top: 4px;"><strong>User:</strong> ${req.ownerId}</div>` : '';
 
-                    const statusControl = userRole === 'Admin' ? `
-                        <select onchange="updateStatus(${index}, this.value)" class="form-control" style="padding: 2px 8px; font-size: 0.8rem; width: auto; height: auto;">
+                    let displayStatus = req.status;
+                    let actionText = '';
+
+                    if (req.status === 'Ready') {
+                        displayStatus = 'Available';
+                        actionText = '<span style="display:block; font-size:0.75rem; color:#15803d; font-weight:700; margin-top:4px;">Action: Your Requested Item is Available</span>';
+                    } else if (req.status === 'Declined') {
+                        displayStatus = 'Not Available';
+                        actionText = '<span style="display:block; font-size:0.75rem; color:#991b1b; font-weight:700; margin-top:4px;">Action: Your Requested Item is Not Available</span>';
+                    } else if (req.status === 'Processing') {
+                        actionText = '<span style="display:block; font-size:0.7rem; color:#92400e; font-weight:600; margin-top:4px;">Waiting for Librarian Feedback...</span>';
+                    }
+
+                    const statusDisplay = userRole === 'Admin' ? `
+                        <select onchange="updateStatus(${globalIndex}, this.value)" class="form-control" style="padding: 2px 8px; font-size: 0.8rem; width: auto; height: auto;">
                             <option value="Processing" ${req.status === 'Processing' ? 'selected' : ''}>Processing</option>
-                            <option value="Ready" ${req.status === 'Ready' ? 'selected' : ''}>Ready for Pickup</option>
+                            <option value="Ready" ${req.status === 'Ready' ? 'selected' : ''}>Mark Available</option>
                             <option value="Completed" ${req.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                            <option value="Declined" ${req.status === 'Declined' ? 'selected' : ''}>Declined</option>
+                            <option value="Declined" ${req.status === 'Declined' ? 'selected' : ''}>Mark Not Available</option>
                         </select>
-                    ` : `<div class="status-badge status-${req.status}">${req.status}</div>`;
+                    ` : `<div style="text-align:right;"><div class="status-badge status-${req.status}">${displayStatus}</div>${actionText}</div>`;
 
                     resultsList.innerHTML += `
                         <div class="request-card">
@@ -181,13 +224,16 @@
                             <div style="color: var(--text-muted); font-size: 0.9rem;">${req.type}</div>
                             <div style="color: var(--text-light); font-size: 0.9rem;">${req.date}</div>
                             <div style="display:flex; align-items:center; gap:10px; justify-content:flex-end;">
-                                ${statusControl}
+                                ${statusDisplay}
                                 ${deleteBtn}
                             </div>
                         </div>
                     `;
                 });
-            }, 600);
+
+                // Trigger the automatic feedback logic if there are items "Processing"
+                if (!skipLongLoader) autoResolveProcessing();
+            }, skipLongLoader ? 300 : 4000);
         }
 
         searchBtn.addEventListener('click', () => queryDatabase(searchInput.value));
